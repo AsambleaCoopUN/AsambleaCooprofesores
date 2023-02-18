@@ -1,14 +1,25 @@
-#cabecera
+/*Barra de navegación*/
+.navbar{
+    padding: 0.3rem;
+    background-color: #a6bdd4;
+}
+
+.navbar-collapse{
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cabecera
 {
     color: rgb(0, 0, 0);
     font-family: "Arial";
 }
 
-#h1{
+.h1{
     font-size: 30px;
 }
 
-#cabecera #logo
+.cabecera #logo
 {
     width: 300px;
     vertical-align: middle;
@@ -20,4 +31,16 @@
     text-align: left;
     border: 2px solid #000000;
     margin: 0 auto;
+}
+
+#footer{
+    margin-bottom: 0vmax;
+}
+
+/*Adaptable responsivo*/
+
+@media screen and (max-width: 767px){
+    .navbar-brand{
+        display: none;
+    }
 }
