@@ -12,31 +12,31 @@
 <body>
   <div class="container" id="cabecera">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-6 col-md-5 col-lg-3 text-center">
           <img id="logo" src="./sources/logo_cpun.png" />
         </div>
-        <div class="col-md-9 text-center">
+        <div class="col-sm-6 col-md-7 col-lg-9 text-center">
           <h1>Cooperativa de Profesores de la Universidad Nacional <br> Sistema de votación</h1>
         </div>
       </div>
   </div>
-
-  <div id="registro" >
-    <form id="formulario">
-      <div class="mb-3">
-        <label for="cedula" class="form-label">Documento del asociado</label>
-        <input type="number" class="form-control" id="cedula" aria-describedby="cédula">
-      </div>
-      <div class="mb-3">
-        <label for="credencial" class="form-label">Credencial</label>
-        <input type="password" class="form-control" id="credencial">
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="ckregistrar">
-        <label class="form-check-label" for="ckregistrar">Registrar</label>
-      </div>
-      <button type="submit" class="btn btn-confirmar">Confirmar</button>
-    </form>
+  
+  <div class="row">
+    <div id="registro" class="container text-center columna">
+      <form id="formulario">
+        <div class="mb-3">
+          <label for="cedula" class="form-label">Documento del asociado</label>
+          <input type="number" class="form-control" id="cedula" aria-describedby="cédula">
+        </div>
+        <div class="mb-3">
+          <label for="credencial" class="form-label">Credencial</label>
+          <input type="password" class="form-control" id="credencial">
+        </div>
+        <div class="mb-3 form-check">
+          <button type="submit" class="btn btn-success">Confirmar</button>  
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 </html>
