@@ -35,18 +35,12 @@ h1{
 
 
 #formulario{
-    padding: 2rem;
+    padding: 1.5rem;
     border: 2px solid #000000;
     margin: 0 auto;
 }
 
-#formulario #row{
-    flex-direction: row;
-    justify-content: center;
-}
-
 /*Adaptable responsivo*/
-
 @media screen and (max-width: 767px){
     .navbar-brand{
         display: none;
