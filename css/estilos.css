@@ -11,14 +11,21 @@
 
 /*Estilos generales*/
 section{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center;  */
+    display: grid;
+    align-content: center;
 
 }
 
+.row{
+    padding: 0.5rem;
+}
+
 h1{
+    padding: 2rem;
     font-size: 2.5rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

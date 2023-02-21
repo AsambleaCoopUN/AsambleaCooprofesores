@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <!--Metadatos-->
     <meta charset="UTF-8">
@@ -20,47 +20,51 @@
     <link rel="icon" type="image/x-icon" href="./sources/favicon_cpun.png"/>
 </head>
 <body>
-    <!--Barra de navegación-->
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-md bg-body-tertiary">
+    <header>
+        <!--Barra de navegación-->
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggler">
-            <a class="navbar-brand"><img src="./sources/logo_cpun.png" width="250" alt="Logo de la página web"></a>
-            <ul class="navbar-nav d-flex justify-content-center align-items-center">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./index.html">Registro</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="./consulta.html">Consulta</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled">Moderador</a>
-                </li>
-            </ul>
+            <nav class="navbar navbar-expand-md bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                <a class="navbar-brand"><img src="./sources/logo_cpun.png" width="250" alt="Logo de la página web"></a>
+                <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./index.html">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="./consulta.html">Consulta</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled">Moderador</a>
+                    </li>
+                </ul>
+                </div>
             </div>
+            </nav>
         </div>
-        </nav>
-    </div>
+    </header>
 
-    <!--Registro de preguntas-->
-    <section>
-        <div id="preguntas" class="container d-flex flex-column justify-content-center align-items-center">
-            <h1>Pregunta <span>1</span></h1>
-            <form id="formulario">
-                <div class="mb-2">
-                    <label for="pregunta" class="form-label">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, obcaecati quaerat. Quod dicta consectetur laboriosam nemo beatae iusto aliquid iure, illum libero ut a et necessitatibus minima eos ipsum eveniet?</label>
-                    <!--<input type="text" class="form-control" id="pregunta" aria-describedby="pregunta">-->
-                </div>
-                <div class="respuestas">
-                    <input type="radio" name="preg1" value="1" /> Sí<br />
-                    <input type="radio" name="preg1" value="2" /> No<br />
-                    <input type="radio" name="preg1" value="3" /> Ns/Nc<br />
-                </div>
-            </form>
-        </div>
-    </section>
+    <main>
+        <!--Registro de preguntas-->
+        <section>
+            <div id="preguntas" class="container d-flex flex-column justify-content-center align-items-center">
+                <h1>Pregunta <span>1</span></h1>
+                <form id="formulario">
+                    <div class="mb-2">
+                        <label for="pregunta" class="form-label">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, obcaecati quaerat. Quod dicta consectetur laboriosam nemo beatae iusto aliquid iure, illum libero ut a et necessitatibus minima eos ipsum eveniet?</label>
+                        <!--<input type="text" class="form-control" id="pregunta" aria-describedby="pregunta">-->
+                    </div>
+                    <div class="respuestas">
+                        <input type="radio" name="preg1" value="1" /> Sí<br />
+                        <input type="radio" name="preg1" value="2" /> No<br />
+                        <input type="radio" name="preg1" value="3" /> Ns/Nc<br />
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
