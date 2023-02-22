@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 /*Barra de navegación*/
 .navbar{
     padding: 0.3rem;
@@ -17,19 +23,7 @@ section{
     justify-content: center;  */
     display: grid;
     align-content: center;
-
 }
-
-.row{
-    padding: 0.5rem;
-}
-
-h1{
-    padding: 2rem;
-    font-size: 2.5rem;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
 
 /*Seccion Hero*/
 .cabecera
@@ -40,11 +34,26 @@ h1{
     min-height: 450px;
 }
 
+h1{
+    padding: 2rem;
+    font-size: 2.5rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 
 #formulario{
     padding: 1.5rem;
     border: 2px solid #000000;
     margin: 0 auto;
+}
+
+.row #opcion{
+    display: inline-block;
+    align-items: center;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+}
+
+#btnconfirmar{
+    margin-left: 3.5rem;
 }
 
 /*Adaptable responsivo*/
