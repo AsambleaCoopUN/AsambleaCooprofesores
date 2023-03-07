@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 
+
 /* definición de ruta y puerto del servidor de pruebas */
 app.listen(8688, ()=>{
     console.log('Server corriendo en http://localhost:8688')
