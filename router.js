@@ -7,14 +7,13 @@ router.get('/',(req,res)=>{
 })
 
 router.get('/consulta',(req,res)=>{
-    res.render('consulta');
-    /* conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
+    conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
         if (error){
             throw error;
         }else{
-            res.send(results);
+            res.render('consulta', {results:results});
         }
-    }); */
+    });
 })
 
 router.get('/contacto',(req,res)=>{
