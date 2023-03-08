@@ -10,6 +10,9 @@ app.listen(8688, ()=>{
 /* Establecer la carpeta pública */
 app.use(express.static('public'));
 
+/* establecer las carpetas estáticas */
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist' + '/node_modules/jquery/dist/' + '/public/'));
+
 /* EJS como motor de plantillas*/
 app.set('view engine','ejs');
 
