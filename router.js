@@ -2,7 +2,7 @@ const express = require ('express');
 const router = express.Router();
 const conexion = require('./database/conexion');
 
-router.get('/',(req,res)=>{
+router.get('/',(req,res)=> {
     res.render('index');
        /*  conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
         if (error){
@@ -18,7 +18,7 @@ router.get('/consulta',(req,res)=>{
         if (error){
             throw error;
         }else{
-            res.render('consulta', {results:results});
+            res.render('consulta', {results:results.rows});
         }
     });
 })

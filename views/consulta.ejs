@@ -14,7 +14,7 @@
             <section>
                 <div class="container">
                     <a href="/create" class="btn btn-success">Consultar</a>
-                    <table>
+                    <table class="table table-bordered table-striped table-center mt-4">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -24,10 +24,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% results.forEach ((user)=> {  
+                            <% results.forEach ((user)=> { %>
                             <tr>
                                 <td><%= user.delegado_id %></td>
-                                <td><%= user.delegado_documento_identificación %></td>
+                                <td><%= user.delegado_documento_identificacion %></td>
                                 <td><%= user.delegado_nombres %></td>
                                 <td><%= user.delegado_tipo %></td>
                                 <td>
@@ -35,7 +35,7 @@
                                     <a href="/delete" class="btn btn-primary">Borrar</a>
                                 </td>
                             </tr>
-                            }); %>
+                            <% }) %>
                         </tbody>
                     </table>
                 </div>
