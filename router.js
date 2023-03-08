@@ -4,6 +4,13 @@ const conexion = require('./database/conexion');
 
 router.get('/',(req,res)=>{
     res.render('index');
+       /*  conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
+        if (error){
+            throw error;
+        }else{
+            res.send(results);
+        }
+    }); */
 })
 
 router.get('/consulta',(req,res)=>{
