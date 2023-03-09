@@ -53,19 +53,24 @@
             <form action="/save" method="post">
                 <div class="mb-3">
                     <label for="pregunta" class="form-label">Nueva pregunta</label>
-                    <textarea class="form-control" id="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
+                    <textarea class="form-control" id="pregunta" name="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="respuesta1" class="form-label">Respuesta 1</label>
-                    <input type="text" class="form-control" id="respuesta1"></input>
+                    <input type="text" class="form-control" id="respuesta1" name="respuesta1"></input>
                 </div>
                 <div class="mb-3">
                     <label for="respuesta2" class="form-label">Respuesta 2</label>
-                    <input type="text" class="form-control" id="respuesta2"></input>
+                    <input type="text" class="form-control" id="respuesta2" name="respuesta2"></input>
                 </div>
                 <div class="mb-3">
                     <label for="respuesta3" class="form-label">Respuesta 3</label>
-                    <input type="text" class="form-control" id="respuesta3"></input>
+                    <input type="text" class="form-control" id="respuesta3" name="respuesta3"></input>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success" tabindex="5">Guardar</button>
+                    <button type="submit" class="btn btn-secoundary" tabindex="6">Editar</button>
+                    <a href="/" class="btn btn-secoundary">Cancelar</a>
                 </div>
             </form>
         </section>

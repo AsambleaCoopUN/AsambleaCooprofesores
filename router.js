@@ -27,6 +27,9 @@ router.get('/create', (req,res)=>{
     res.render('create');
 })
 
+const crud = require ('./controller/crud');
+router.post('/save',crud.save)
+
 router.get('/contacto',(req,res)=>{
     res.send('Este es para una de las vistas');
 });

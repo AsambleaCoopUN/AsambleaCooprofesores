@@ -1,4 +1,5 @@
 /* creación de constantes para la invocación del servidor */
+const { json } = require("express");
 const express = require("express");
 const app = express();
 
@@ -12,6 +13,10 @@ app.use(express.static('public'));
 
 /* establecer las carpetas estáticas */
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist' + '/node_modules/jquery/dist/' + '/public/'));
+
+/* indicación para la captura de datos con metodo post */
+app.use(express.urlencoded({extended:false}));
+app.use(express(json));
 
 /* EJS como motor de plantillas*/
 app.set('view engine','ejs');
