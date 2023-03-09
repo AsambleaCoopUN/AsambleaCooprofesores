@@ -23,6 +23,10 @@ router.get('/consulta',(req,res)=>{
     });
 })
 
+router.get('/create', (req,res)=>{
+    res.render('create');
+})
+
 router.get('/contacto',(req,res)=>{
     res.send('Este es para una de las vistas');
 });
