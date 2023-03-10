@@ -61,33 +61,38 @@
 
             <!--Formulario-->
         <section>
-        <form id="main-form" action="/save" method="post">
+        <form id="main-form" class="main-form" action="/save" method="post">
             <div class="mb-4">
-            <label for="cedula" class="form-label">
-                <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Documento de identidad" name="cedula" required>
-            </label>
-            </div>
-            <div class="mb-4">
-            <label for="credencial" class="form-label">
-                <input type="password" class="form-control" id="credencial" name="credencial" placeholder="Número de Credencial" name="credencial" required>
-            </label>
-            </div>
-            <div class="row">
-            <div id="opcion" class="col-xs-12 col-sm-6">
-                <label for="movil" class="form-label">
-                <span>Movil</span>
-                <input type="radio" name="dispositivo" id="movil">
+                <label for="asamblea" class="form-label">
+                <input type="number" class="form-control asamblea" id="asamblea" name="asamblea" aria-describedby="asamblea" value="1" required>
                 </label>
             </div>
-            <div id="opcion" class="col-xs-12 col-sm-6">
-                <label for="pc" class="form-label">
-                <span>PC</span>
-                <input type="radio" name="dispositivo" id="pc">
+            <div class="mb-4">
+                <label for="cedula" class="form-label">
+                <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Documento de identidad" required>
                 </label>
             </div>
-            </div>
+            <!-- <div class="mb-4">
+                <label for="credencial" class="form-label">
+                <input type="password" class="form-control" id="credencial" name="credencial" placeholder="Número de Credencial" required>
+                </label>
+            </div> -->
+            <!-- <div class="row">
+                <div id="opcion" class="opcion col-xs-12 col-sm-6">
+                    <label for="movil" class="form-label">
+                    <span>Movil</span>
+                    <input type="radio" name="dispositivo" id="movil">
+                    </label>
+                </div>
+                <div id="opcion" class="opcion col-xs-12 col-sm-6">
+                    <label for="pc" class="form-label">
+                    <span>PC</span>
+                    <input type="radio" name="dispositivo" id="pc">
+                    </label>
+                </div>
+            </div> -->
             <div class="btnconfirmar">
-            <input type="submit" class="btn btn-success" id="btnconfirmar" value="Confirmar" />
+                <input type="submit" class="btn btn-success btnconfirmar" id="btnconfirmar" value="Confirmar" />
             </div>
         </form>
         </section>
@@ -99,7 +104,7 @@
     <script src="/dist/js/bootstrap.min.js"></script>
 
         <!--Pie de página-->
-    <footer>
+    <footer class="footer">
         <div class="container-fluid text-center">
         <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
         </div>

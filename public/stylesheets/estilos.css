@@ -40,20 +40,29 @@ h1{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#main-form{
+.main-form{
     padding: 1.5rem;
     border: 2px solid #000000;
     margin: 0 auto;
+    align-items: center;
 }
 
-.row #opcion{
+.main-form .asamblea{
+    display:none;
+}
+
+.row .opcion{
     display: inline-block;
     align-items: center;
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
 }
 
-#btnconfirmar{
-    margin-left: 3.5rem;
+.btnconfirmar{
+    margin-left: 1.8rem;
+}
+
+.footer{
+    margin-top: 3rem;
 }
 
 /*Adaptable responsivo*/

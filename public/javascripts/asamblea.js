@@ -3,8 +3,13 @@ function consultar(){
     confirmar.addEventListener('click', registrar)
 }
 
-function registrar(){
-    alert("Registro satisfactorio")
+function registrar(results){
+    if (results==true){
+        alert("Registro satisfactorio")
+    }else{
+        alert("error de registro")
+    }
+        
 }
 
 window.addEventListener("load",consultar)
