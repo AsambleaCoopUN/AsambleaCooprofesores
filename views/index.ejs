@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-    <!--Metadatos-->
-    <meta charset="UTF-8">
-    <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
-    <meta name="description" content="Registro de votaciones COOPUN">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!--CSS-->
-    <link href="/stylesheets/estilos.css" rel="stylesheet">
-    <!--Titulo-->
-    <title>Sistema de votación</title>
-    <!--Favicon-->
-    <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+        <!--Metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
+        <meta name="description" content="Registro de votaciones COOPUN">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
+        <!--CSS-->
+        <link href="/stylesheets/estilos.css" rel="stylesheet">
+        <!--Titulo-->
+        <title>Sistema de votación</title>
+        <!--Favicon-->
+        <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
     </head>
     <body>
     <header>
@@ -61,15 +61,15 @@
 
             <!--Formulario-->
         <section>
-        <form id="main-form">
+        <form id="main-form" action="/save" method="post">
             <div class="mb-4">
             <label for="cedula" class="form-label">
-                <input type="number" class="form-control" id="cedula" aria-describedby="cedula" placeholder="Documento de identidad" name="cedula" required>
+                <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Documento de identidad" name="cedula" required>
             </label>
             </div>
             <div class="mb-4">
             <label for="credencial" class="form-label">
-                <input type="password" class="form-control" id="credencial" placeholder="Número de Credencial" name="credencial" required>
+                <input type="password" class="form-control" id="credencial" name="credencial" placeholder="Número de Credencial" name="credencial" required>
             </label>
             </div>
             <div class="row">
@@ -96,7 +96,7 @@
     <!--JavaScript-->
     <script src="/javascripts/asamblea.js"></script>
     <script src="/javascripts/jquery-3.6.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
 
         <!--Pie de página-->
     <footer>

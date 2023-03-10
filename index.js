@@ -12,11 +12,13 @@ app.listen(8688, ()=>{
 app.use(express.static('public'));
 
 /* establecer las carpetas estáticas */
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist' + '/node_modules/jquery/dist/' + '/public/'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/'));
+app.use(express.static(__dirname + '/node_modules/jquery/'));
+app.use(express.static(__dirname + '/public/'));
 
 /* indicación para la captura de datos con metodo post */
 app.use(express.urlencoded({extended:false}));
-app.use(express(json));
+app.use(express.json());
 
 /* EJS como motor de plantillas*/
 app.set('view engine','ejs');
