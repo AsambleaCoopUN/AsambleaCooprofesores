@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <!--Metadatos-->
+    <meta charset="UTF-8">
+    <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
+    <meta name="description" content="Registro de votaciones COOPUN">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!--CSS-->
+    <link href="/stylesheets/estilos.css" rel="stylesheet">
+    <!--Titulo-->
+    <title>Crear pregunta</title>
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+    </head>
+<body>
+    <header>
+        <!--Barra de navegación-->
+        <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-body-tertiary">
+            <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <a class="navbar-brand">
+                <figure>
+                    <img src="/images/logo_cpun.png" width="250" alt="Logo de la página web">
+                </figure>
+                </a>
+                <ul class="navbar-nav d-flex justify-content-center align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Registro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href='/consulta'>Consulta</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/create">Moderador</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <form action="/save" method="post">
+                <div class="mb-3">
+                    <label for="pregunta" class="form-label">Nueva pregunta</label>
+                    <textarea class="form-control" id="pregunta" name="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="respuesta1" class="form-label">Respuesta 1</label>
+                    <input type="text" class="form-control" id="respuesta1" name="respuesta1"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="respuesta2" class="form-label">Respuesta 2</label>
+                    <input type="text" class="form-control" id="respuesta2" name="respuesta2"></input>
+                </div>
+                <div class="mb-3">
+                    <label for="respuesta3" class="form-label">Respuesta 3</label>
+                    <input type="text" class="form-control" id="respuesta3" name="respuesta3"></input>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success" tabindex="5">Guardar</button>
+                    <button type="submit" class="btn btn-secoundary" tabindex="6">Editar</button>
+                    <a href="/" class="btn btn-secoundary">Cancelar</a>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
