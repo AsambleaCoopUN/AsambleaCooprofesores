@@ -50,7 +50,7 @@
     </header>
     <main>
         <section>
-            <form action="/quest" method="post">
+            <form class="main-form" action="/quest" method="post">
                 <div class="mb-3">
                     <label for="pregunta" class="form-label">Nueva pregunta</label>
                     <textarea class="form-control" id="pregunta" name="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
@@ -69,11 +69,16 @@
                 </div>
                 <div>
                     <button type="submit" class="btn btn-success" tabindex="5">Guardar</button>
-                    <button type="submit" class="btn btn-secoundary" tabindex="6">Editar</button>
-                    <a href="/" class="btn btn-secoundary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" tabindex="6">Editar</button>
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </section>
     </main>
+
+    <!--JavaScript-->
+    <script src="/javascripts/asamblea.js"></script>
+    <script src="/javascripts/jquery-3.6.3.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

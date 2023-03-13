@@ -14,7 +14,7 @@ router.get('/',(req,res)=> {
 })
 
 router.get('/consulta',(req,res)=>{
-    conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
+    conexion.query('select d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo ,aa.fecha_hora_registro_entrada from emodel.delegado d left outer join emodel.asistencia_asamblea aa on d.delegado_id  = aa.delegado_id order by aa.fecha_hora_registro_entrada  asc', (error,results)=>{
         if (error){
             throw error;
         }else{

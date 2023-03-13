@@ -13,11 +13,11 @@ const pool = new Pool({
 /* const pool = new Pool({
   user: 'postgres',
   password: '123456',
-  host: 'localhost',
+  host: '0.0.0.0',
   port: 5432,
   database: 'evoto_local'
-}); */
-
+});
+ */
 pool.connect((err, client, release) => {
   if (err) {
     return console.error('Error adquiriendo el cliente', err.stack)
