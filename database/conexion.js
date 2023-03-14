@@ -9,15 +9,6 @@ const pool = new Pool({
   database: 'evoto'
 });
 
-/* conexión servidor local*/
-/* const pool = new Pool({
-  user: 'postgres',
-  password: '123456',
-  host: '0.0.0.0',
-  port: 5432,
-  database: 'evoto_local'
-});
- */
 pool.connect((err, client, release) => {
   if (err) {
     return console.error('Error adquiriendo el cliente', err.stack)
@@ -26,3 +17,22 @@ pool.connect((err, client, release) => {
 });
 
 module.exports = pool;
+
+/* conexión servidor local*/
+/* const mysql = require('mysql');
+const conexion = mysql.createConnection({
+  user: 'khronos',
+  password: '123456',
+  host: 'localhost',
+  port: 3306,
+  database: 'asamblea'
+});
+
+conexion.connect((err, client, release)=>{
+  if (err) {
+    return console.error('Error adquiriendo el cliente', err.stack)
+  }
+  console.log('Conexión exitosa a la base de datos')
+})
+
+module.exports = mysql; */

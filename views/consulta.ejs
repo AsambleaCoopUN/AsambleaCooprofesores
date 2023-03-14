@@ -37,7 +37,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Registro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href='/consulta'>Consulta</a>
+                    <a class="nav-link" href='/general'>Listado general</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/create">Moderador</a>
@@ -68,10 +68,8 @@
                                 <td><%= user.delegado_documento_identificacion %></td>
                                 <td><%= user.delegado_nombres %></td>
                                 <td><%= user.delegado_tipo %></td>
-                                <td><%= user.fecha_hora_registro_entrada %></td>
                                 <td>
-                                    <a href="/edit" class="btn btn-primary">Editar</a>
-                                    <a href="/delete" class="btn btn-primary">Borrar</a>
+                                    <a href="/save" class="btn btn-primary">Registrar</a>
                                 </td>
                             </tr>
                             <% }) %>
