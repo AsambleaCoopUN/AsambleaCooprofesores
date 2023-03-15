@@ -13,7 +13,7 @@ router.get('/',(req,res)=> {
     }); */
 })
 
-/* redirecciona a la pagina donde aparece el listado completo de delegados */
+/* redirecciona a la pagina donde aparece el listado completo de delegados y lo ordena por fecha y hora de registro de ingreso a la Asamblea*/
 router.get('/general',(req,res)=>{
     conexion.query('select d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo ,aa.fecha_hora_registro_entrada from emodel.delegado d left outer join emodel.asistencia_asamblea aa on d.delegado_id  = aa.delegado_id order by aa.fecha_hora_registro_entrada  asc', (error,results)=>{
         if (error){
