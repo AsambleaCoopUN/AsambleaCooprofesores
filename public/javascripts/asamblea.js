@@ -1,5 +1,5 @@
 /* function consultar(){
-    let confirmar = document.getElementById('btnconfirmar')
+    let confirmar = document.getElementById('btnregistrar')
     confirmar.addEventListener('click', registrar)
 }
 
@@ -12,4 +12,4 @@ function registrar(results){
         
 }
 
-window.addEventListener("load",consultar) */
+window.addEventListener("load",'/general') */
