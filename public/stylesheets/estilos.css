@@ -52,6 +52,10 @@ h1{
     display:none;
 }
 
+.main-form_table{
+    text-align: center;
+}
+
 .row .opcion{
     display: inline-block;
     align-items: center;

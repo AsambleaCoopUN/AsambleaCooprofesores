@@ -55,6 +55,7 @@
                         <table class="table table-bordered table-striped table-center mt-4">
                             <thead>
                                 <tr>
+                                    <th scope="col">Asamblea No.</th>
                                     <th scope="col">ID</th>
                                     <th scope="col">Documento</th>
                                     <th scope="col">Nombre</th>
@@ -62,10 +63,11 @@
                                     <th scope="col">Hora de registro</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="main-form_table">
                                 <% results.forEach ((user)=> { %>
                                 <tr>
-                                    <td><%= user.delegado_id %></td>
+                                    <td id="asamblea" name="asamblea"><%= user.asamblea_id %></td>
+                                    <td id="idUsuario" name="idUsuario"><%= user.delegado_id %></td>
                                     <td><%= user.delegado_documento_identificacion %></td>
                                     <td><%= user.delegado_nombres %></td>
                                     <td><%= user.delegado_tipo %></td>
