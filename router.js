@@ -32,12 +32,14 @@ router.get('/consulta', (req,res)=>{
     res.render('consulta');
 })
 
+
 const crud = require ('./controller/crud');
 router.post('/save', crud.save);
 router.post('/read', crud.read);
 
-router.get('/contacto',(req,res)=>{
-    res.send('Este es para una de las vistas');
+//enrtamiento para visualizar todas las preguntas 
+router.get('/view_questions', (req, res) => {
+    res.render('view_questions');
 });
 
 module.exports = router;
