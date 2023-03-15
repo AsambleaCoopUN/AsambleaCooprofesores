@@ -1,27 +1,27 @@
 const conexion = require('../database/conexion');
 
 exports.save = (req,res)=>{
-    const pregunta = req.body.pregunta;
-    const respuesta1 = req.body.respuesta1;
-    const respuesta2   = req.body.respuesta2;
-    const respuesta3 = req.body.respuesta3;
+    const asamblea = req.body.asamblea;
+    const idUsuario = req.body.idUsuario;
     /* prueba de captura los datos */
-    /* console.log(pregunta + " - " + respuesta1 + " - " + respuesta2 + " - " + respuesta3); */
-    conexion.query('insert into emodel.pregunta_asamblea(pregunta_enunciado, bandera_votacion, asamblea_id) SET ?',{pregunta:pregunta, pregunta:'E', pregunta:'1'}, (error, results)=>{
-        if (error){
-            console.log(error);
-        }else{
+/*     console.log(cedula + " - " + credencia); */
+conexion.query ('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id SET ?', {asamblea:asamblea, idUsuario:idUsuario}, (error, results) =>{
+    if (error){
+        throw error;
+    }else{
+        res.redirect('/');
+    }
+});
+}
 
-            res.redirect('/');
-        }
-    });
-    
-    conexion.query('insert into emodel.pregunta_opciones (pregunta_opcion_orden,pregunta_opcion_enunciado,pregunta_opcion_ordinal, pregunta_opcion_visualizar ,pregunta_id) SET ?',{respuesta1:'1', respuesta1:respuesta1, respuesta1:'a', respuesta1:'S', respuesta1:'2'}, (error, results)=>{
+exports.read = (req,res)=>{
+    /* prueba de captura los datos */
+    const cedula = (req.body.cedula);
+    conexion.query(`SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`, (error, results) =>{
         if (error){
-            console.log(error);
+            throw error;
         }else{
-
-            res.redirect('/');
+            res.render('consulta', {results:results.rows});
         }
     });
 }

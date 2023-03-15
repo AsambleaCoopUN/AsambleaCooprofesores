@@ -1,10 +1,15 @@
-function consultar(){
+/* function consultar(){
     let confirmar = document.getElementById('btnconfirmar')
     confirmar.addEventListener('click', registrar)
 }
 
-function registrar(){
-    alert("Registro satisfactorio")
+function registrar(results){
+    if (results==true){
+        alert("Registro satisfactorio")
+    }else{
+        alert("error de registro")
+    }
+        
 }
 
-window.addEventListener("load",consultar)
+window.addEventListener("load",consultar) */
