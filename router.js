@@ -33,8 +33,8 @@ router.get('/consulta', (req,res)=>{
 })
 
 const crud = require ('./controller/crud');
-router.post('/save',crud.save);
-router.post('/read',crud.read);
+router.post('/save', crud.save);
+router.post('/read', crud.read);
 
 router.get('/contacto',(req,res)=>{
     res.send('Este es para una de las vistas');

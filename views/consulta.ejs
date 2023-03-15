@@ -50,32 +50,34 @@
     </header>
         <main>
             <section>
-                <div class="container">
-                    <table class="table table-bordered table-striped table-center mt-4">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Documento</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Hora de registro</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% results.forEach ((user)=> { %>
-                            <tr>
-                                <td><%= user.delegado_id %></td>
-                                <td><%= user.delegado_documento_identificacion %></td>
-                                <td><%= user.delegado_nombres %></td>
-                                <td><%= user.delegado_tipo %></td>
-                                <td>
-                                    <a href="/save" class="btn btn-primary">Registrar</a>
-                                </td>
-                            </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
-                </div>
+                <form id="main-form" class="main-form" action="/save" method="post">
+                    <div class="container">
+                        <table class="table table-bordered table-striped table-center mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Documento</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Hora de registro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% results.forEach ((user)=> { %>
+                                <tr>
+                                    <td><%= user.delegado_id %></td>
+                                    <td><%= user.delegado_documento_identificacion %></td>
+                                    <td><%= user.delegado_nombres %></td>
+                                    <td><%= user.delegado_tipo %></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary" tabindex="5">Registrar</button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
             </section>
         </main>
         
