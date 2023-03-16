@@ -42,4 +42,9 @@ router.get('/view_questions', (req, res) => {
     res.render('view_questions');
 });
 
+//enrtamiento para visualizar solo una pregunta preguntas 
+router.get('/view_Selec_question', (req, res) => {
+    res.render('view_Selec_question');
+});
+
 module.exports = router;
