@@ -60,18 +60,23 @@
                                     <th scope="col">Documento</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Tipo</th>
-                                    <!-- <th scope="col">Hora de registro</th> -->
                                 </tr>
                             </thead>
                             <tbody class="main-form_table">
                                 <% results.forEach ((user)=> { %>
                                 <tr>
-                                    <td id="asamblea" name="asamblea"><%= user.asamblea_id %></td>
-                                    <td id="idUsuario" name="idUsuario"><%= user.delegado_id %></td>
+                                    <td id="asambleaIdText"><%= user.asamblea_id %></td>
+                                    <td id="delegadoIdText"> <%= user.delegado_id %></td>
                                     <td><%= user.delegado_documento_identificacion %></td>
                                     <td><%= user.delegado_nombres %></td>
                                     <td><%= user.delegado_tipo %></td>
                                 </tr>
+                                <td>
+                                    <input type="hidden" name="asambleaId" value="<%= user.asamblea_id %>" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="delegadoId" value="<%= user.delegado_id %>" />
+                                </td>
                                 <% }) %>
                             </tbody>
                         </table>
@@ -82,9 +87,13 @@
         </main>
         
         <!--JavaScript-->
-    <script src="/javascripts/asamblea.js"></script>
-    <script src="/javascripts/jquery-3.6.3.min.js"></script>
-    <script src="/dist/js/bootstrap.min.js"></script>
+        <script>
+            let asambleaIdText = user.asamblea_id;
+            let delegadoIdText = user.delegado_id;
+        </script>
+        <script src="/javascripts/asamblea.js"></script>
+        <script src="/javascripts/jquery-3.6.3.min.js"></script>
+        <script src="/dist/js/bootstrap.min.js"></script>
 
     </body>
 </html>

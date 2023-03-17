@@ -2,22 +2,22 @@ const conexion = require('../database/conexion');
 
 exports.save = (req,res)=>{
     /* capturas las celdas requeridas por el id */
-    const asambleaCell = req.document.getElementById('asamblea')
-    const delegadoIdCell = req.document.getElementById('idUsuario')
-
-    /* captura el txto en las celdas */
-    const asambleaIdText = asambleaCell.textContent;
-    const delegadoIdText = delegadoIdCell.textContent;
+    const asambleaId = (req.body.asambleaId);
+    const delegadoId = (req.body.delegadoId);
 
     /* prueba de captura los datos */
-    console.log(asambleaIdText + " - " + delegadoIdText);
-/* conexion.query ("INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id VALUES (?,?)",[asamblea,idUsuario] , (error, results) =>{
-    if (error){
-        throw error;
-    }else{
-        res.redirect('/');
-    }
-}); */
+    /* console.log(asambleaId + " - " + delegadoId); */
+
+    /* console.log('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES (?,?)',[asambleaId,delegadoId]); */
+    /* conexion.query ('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES (?, ?)', [asambleaId, delegadoId], (error, results) => { */
+    conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
+        if (error){
+            throw error;
+        }else{
+            registrar();
+            res.redirect('/');
+        }
+    });
 }
 
 exports.read = (req,res)=>{
