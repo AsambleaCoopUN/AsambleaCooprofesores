@@ -11,7 +11,7 @@
         <!--Bootstrap-->
         <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
         <!--CSS-->
-        <link href="/stylesheets/estilos.css" rel="stylesheet">
+        <link href="/stylesheets/styleindex.css" rel="stylesheet">
         <!--Titulo-->
         <title>Sistema de votación</title>
         <!--Favicon-->
@@ -49,26 +49,25 @@
         </div>
     </header>
 
-    <main>
+    <main class="main">
         <!--Sección Hero-->
-        <section>
-        <div id="cabecera" class="d-flex flex-column justify-content-center align-items-center">
-            <div class="row col-lg-12 text-center">
-            <h1>Registro Asamblea <br> Cooperativa de Profesores de la Universidad Nacional </h1>
+        <section class="main-section_cabecera">   
+            <div id="cabecera" class="d-flex flex-column justify-content-center align-items-center" >
+                <div class="row col-lg-12 text-center">
+                    <h1>Registro Asamblea <br> Cooperativa de Profesores de la Universidad Nacional </h1>
+                </div>
             </div>
-        </div>
-        </section>
-
+        </section>    
             <!--Formulario-->
-        <section>
+        <section class="main-section_form">
             <form id="main-form" class="main-form" action="/read" method="post">
-                <div class="mb-4">
+                <div class="main-section_form_inpbox mb-4 col-mb-12" >
                     <label for="cedula" class="form-label">
-                        <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Documento de identidad" required>
+                        <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Cédula" required>
                     </label>
                 </div>
-                <div class="btnconsultar">
-                    <button type="submit" class="btn btn-primary" tabindex="5">Consultar</button>
+                <div class="mb-4 col-mb-12 main-section_form_button">
+                    <button type="submit" class="btn btn-primary btnconsultar" tabindex="5">Consultar</button>
                 </div>
             </form>
         </section>

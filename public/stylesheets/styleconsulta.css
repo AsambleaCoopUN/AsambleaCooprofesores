@@ -37,7 +37,7 @@ h1{
 }
 
 .main-form{
-    width: 35rem;
+    width: 50rem;
     height: 20rem;
     padding: 1.5rem;
     border: 2px solid #000000;
@@ -71,10 +71,9 @@ h1{
 }
 
 
-.btnconsultar{
+.btnregistrar{
     padding: 2rem 1rem;
     font-size: medium;
-    
 }
 
 .footer{
