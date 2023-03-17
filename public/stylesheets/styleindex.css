@@ -36,7 +36,12 @@ h1{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.main-form{
+.main-section{
+    position: relative;
+    padding: 1.5rem;
+}
+
+.main-section_form{
     width: 35rem;
     height: 20rem;
     padding: 1.5rem;
@@ -44,10 +49,6 @@ h1{
     margin: 0 auto;
     margin-top: 2rem;
     position: relative;
-}
-
-.main-form_table{
-    text-align: center;
 }
 
 .main-section_form_inpbox{
@@ -69,7 +70,6 @@ h1{
     transform: translate(-50%, -50%);
     
 }
-
 
 .btnconsultar{
     padding: 2rem 1rem;

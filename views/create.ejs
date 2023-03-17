@@ -48,9 +48,9 @@
         </nav>
         </div>
     </header>
-    <main>
-        <section class="main-section_form">
-            <form class="main-form" action="/quest" method="post">
+    <main class="main">
+        <section class="main-section">
+            <form class="main-section_form" action="/quest" method="post">
                 <div class="mb-3">
                     <label for="pregunta" class="form-label">Nueva pregunta</label>
                     <textarea class="form-control" id="pregunta" name="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
@@ -67,10 +67,10 @@
                     <label for="respuesta3" class="form-label">Respuesta 3</label>
                     <input type="text" class="form-control" id="respuesta3" name="respuesta3"></input>
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-success" tabindex="5">Guardar</button>
-                    <button type="submit" class="btn btn-primary" tabindex="6">Editar</button>
-                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                <div class="main-section_form_button">
+                    <button type="submit" class="btn btn-success boton" tabindex="5">Guardar</button>
+                    <button type="submit" class="btn btn-primary boton" tabindex="6">Editar</button>
+                    <a href="/" class="btn btn-secondary boton">Cancelar</a>
                 </div>
             </form>
         </section>

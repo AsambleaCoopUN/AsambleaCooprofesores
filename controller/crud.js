@@ -6,21 +6,22 @@ exports.save = (req,res)=>{
     const delegadoId = (req.body.delegadoId);
 
     /* prueba de captura los datos */
-    console.log(asambleaId + " - " + delegadoId);
-  /*   conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
+    /* console.log(asambleaId + " - " + delegadoId); */
+
+    conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
         if (error){
             throw error;
         }else{
-            registrar();
             res.redirect('/');
         }
-    }); */
+    });
 }
 
 exports.read = (req,res)=>{
     /* prueba de captura los datos */
     const cedula = (req.body.cedula);
-    conexion.query(`SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`, (error, results) =>{
+    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`;
+    conexion.query(search, (error, results) =>{
         if (error){
             throw error;
         }else{
