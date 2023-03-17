@@ -65,8 +65,8 @@
                             <tbody class="main-form_table">
                                 <% results.forEach ((user)=> { %>
                                 <tr>
-                                    <td id="asambleaIdText"><%= user.asamblea_id %></td>
-                                    <td id="delegadoIdText"> <%= user.delegado_id %></td>
+                                    <td><%= user.asamblea_id %></td>
+                                    <td> <%= user.delegado_id %></td>
                                     <td><%= user.delegado_documento_identificacion %></td>
                                     <td><%= user.delegado_nombres %></td>
                                     <td><%= user.delegado_tipo %></td>
@@ -80,17 +80,13 @@
                                 <% }) %>
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-primary" tabindex="5">Registrar</button>
+                        <button id="btnregistrar" type="submit" class="btn btn-primary" tabindex="5">Registrar</button>
                     </div>
                 </form>
             </section>
         </main>
         
         <!--JavaScript-->
-        <script>
-            let asambleaIdText = user.asamblea_id;
-            let delegadoIdText = user.delegado_id;
-        </script>
         <script src="/javascripts/asamblea.js"></script>
         <script src="/javascripts/jquery-3.6.3.min.js"></script>
         <script src="/dist/js/bootstrap.min.js"></script>

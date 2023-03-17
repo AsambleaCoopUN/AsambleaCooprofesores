@@ -6,18 +6,15 @@ exports.save = (req,res)=>{
     const delegadoId = (req.body.delegadoId);
 
     /* prueba de captura los datos */
-    /* console.log(asambleaId + " - " + delegadoId); */
-
-    /* console.log('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES (?,?)',[asambleaId,delegadoId]); */
-    /* conexion.query ('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES (?, ?)', [asambleaId, delegadoId], (error, results) => { */
-    conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
+    console.log(asambleaId + " - " + delegadoId);
+  /*   conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
         if (error){
             throw error;
         }else{
             registrar();
             res.redirect('/');
         }
-    });
+    }); */
 }
 
 exports.read = (req,res)=>{
