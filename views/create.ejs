@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-    <!--Metadatos-->
-    <meta charset="UTF-8">
-    <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
-    <meta name="description" content="Registro de votaciones COOPUN">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!--CSS-->
-    <link href="/stylesheets/estilos.css" rel="stylesheet">
-    <!--Titulo-->
-    <title>Crear pregunta</title>
-    <!--Favicon-->
-    <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+        <!--Metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
+        <meta name="description" content="Registro de votaciones COOPUN">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
+        <!--CSS-->
+        <link href="/stylesheets/estilos.css" rel="stylesheet">
+        <!--Titulo-->
+        <title>Sistema de votación</title>
+        <!--Favicon-->
+        <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
     </head>
 <body>
     <header>
@@ -37,7 +37,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Registro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href='/consulta'>Consulta</a>
+                    <a class="nav-link" href='/general'>Listado general</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/create">Moderador</a>
@@ -50,7 +50,7 @@
     </header>
     <main>
         <section>
-            <form action="/save" method="post">
+            <form class="main-form" action="/quest" method="post">
                 <div class="mb-3">
                     <label for="pregunta" class="form-label">Nueva pregunta</label>
                     <textarea class="form-control" id="pregunta" name="pregunta" placeholder="ingrese la pregunta" rows="3"></textarea>
@@ -69,11 +69,16 @@
                 </div>
                 <div>
                     <button type="submit" class="btn btn-success" tabindex="5">Guardar</button>
-                    <button type="submit" class="btn btn-secoundary" tabindex="6">Editar</button>
-                    <a href="/" class="btn btn-secoundary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" tabindex="6">Editar</button>
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </section>
     </main>
+
+    <!--JavaScript-->
+    <script src="/javascripts/asamblea.js"></script>
+    <script src="/javascripts/jquery-3.6.3.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
