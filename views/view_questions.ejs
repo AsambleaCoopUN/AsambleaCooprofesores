@@ -45,6 +45,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/create">Moderador</a>
               </li>
+              <li class="nav-item">
+                    <a class="nav-link" href="/view_questions">Listado de preguntas</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -58,36 +61,23 @@
         <table class="table table-bordered table-striped table-center mt-4">
           <thead>
             <tr class="main-table_tr">
-              <th scope="col">ID</th>
-              <th scope="col">Pregunta</th>
-              <th scope="col">Votos SI</th>
-              <th scope="col">Votos No</th>
-              <th scope="col">Votos en Blanco</th>
-              <th scope="col">Total Votos</th>
+              <th class="col-md-2 main-table_th" scope="col">N° Pregunta</th>
+              <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
+              <th class="col-md-2 main-table_th" scope="col">Estado</th>
             </tr>
           </thead>
           <tbody>
           <%// results.forEach ((user)=> { %>
               <tr class="main-table_tr">
                 <td>
-                //Numero de preguta <%=  %>
+                Numero de cosecutivo<%=  %>
                 </td>
                 <td>
-                //Texto de la pregunta <%= %>
+                Texto de la pregunta <%= %>
                 </td>
                 <td>
-                // # de votos por el SI <%= %>
-                </td>
-                <td>
-                // # de votos por el NO <%= %>
-                </td>
-                <td>
-                // # de votos en blanco <%= %>
-                </td>
-                <td>
-                // Total de votos <%= %>
-                </td>
-                
+                Estado de la pregunta<%= %>
+                </td>             
               </tr>
           <%// ({}) %>
           </tbody>
