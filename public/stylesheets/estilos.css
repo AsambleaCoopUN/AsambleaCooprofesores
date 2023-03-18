@@ -1,8 +1,14 @@
+/* limpieza de estilos predefinidos de HTML */
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
+html{
+    font-size: 62.5%;
+}
+
 
 /*Barra de navegación*/
 .navbar{
@@ -11,69 +17,68 @@
 }
 
 .navbar-collapse{
+    font-size: 1.5rem;
     align-items: center;
     justify-content: space-between;
 }
 
 /*Estilos generales*/
-section{
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;  */
+.main{
+    font-size: 1rem;
     display: grid;
     align-content: center;
 }
 
 /*Seccion Hero*/
-.cabecera
-{
-    padding: 3rem;
-    color: rgb(0, 0, 0);
-    font-family: "Arial";
-    min-height: 450px;
-}
-
 h1{
     padding: 2rem;
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .main-form{
+    width: 35rem;
+    height: 20rem;
     padding: 1.5rem;
     border: 2px solid #000000;
     margin: 0 auto;
     margin-top: 2rem;
-    align-items: center;
-}
-
-.main-form .asamblea{
-    display:none;
+    position: relative;
 }
 
 .main-form_table, .main-table_th,.main-table_td, .main-table_tr{
     text-align: center;
 }
 
-.button-container_moderador{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 20px;
+.main-section_form_inpbox{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.row .opcion{
-    display: inline-block;
-    align-items: center;
-    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+.form-control{
+    font-size: medium;
 }
+
+.main-section_form_button{
+    padding: 1rem 2.5rem 1 2.5;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
 
 .btnconsultar{
-    margin-left: 3.5rem;
+    padding: 2rem 1rem;
+    font-size: medium;
+    
 }
 
 .footer{
+    font-size: 1.3rem;
     margin-top: 3rem;
 }
 
