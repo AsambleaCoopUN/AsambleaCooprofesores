@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-    <!--Metadatos-->
-    <meta charset="UTF-8">
-    <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
-    <meta name="description" content="Registro de votaciones COOPUN">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!--CSS-->
-    <link href="/stylesheets/estilos.css" rel="stylesheet">
-    <!--Titulo-->
-    <title>Sistema de votación</title>
-    <!--Favicon-->
-    <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+        <!--Metadatos-->
+        <meta charset="UTF-8">
+        <meta name="author" content="Dessarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
+        <meta name="description" content="Registro de votaciones COOPUN">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
+        <!--CSS-->
+        <link href="/stylesheets/estilos.css" rel="stylesheet">
+        <!--Titulo-->
+        <title>Sistema de votación</title>
+        <!--Favicon-->
+        <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
     </head>
     <body>
     <header>
@@ -37,7 +37,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Registro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href='/consulta'>Consulta</a>
+                    <a class="nav-link" href='/general'>Listado general</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/create">Moderador</a>
@@ -61,45 +61,26 @@
 
             <!--Formulario-->
         <section>
-        <form id="main-form">
-            <div class="mb-4">
-            <label for="cedula" class="form-label">
-                <input type="number" class="form-control" id="cedula" aria-describedby="cedula" placeholder="Documento de identidad" name="cedula" required>
-            </label>
-            </div>
-            <div class="mb-4">
-            <label for="credencial" class="form-label">
-                <input type="password" class="form-control" id="credencial" placeholder="Número de Credencial" name="credencial" required>
-            </label>
-            </div>
-            <div class="row">
-            <div id="opcion" class="col-xs-12 col-sm-6">
-                <label for="movil" class="form-label">
-                <span>Movil</span>
-                <input type="radio" name="dispositivo" id="movil">
-                </label>
-            </div>
-            <div id="opcion" class="col-xs-12 col-sm-6">
-                <label for="pc" class="form-label">
-                <span>PC</span>
-                <input type="radio" name="dispositivo" id="pc">
-                </label>
-            </div>
-            </div>
-            <div class="btnconfirmar">
-            <input type="submit" class="btn btn-success" id="btnconfirmar" value="Confirmar" />
-            </div>
-        </form>
+            <form id="main-form" class="main-form" action="/read" method="post">
+                <div class="mb-4">
+                    <label for="cedula" class="form-label">
+                        <input type="number" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Documento de identidad" required>
+                    </label>
+                </div>
+                <div class="btnconsultar">
+                    <button type="submit" class="btn btn-primary" tabindex="5">Consultar</button>
+                </div>
+            </form>
         </section>
     </main>
 
     <!--JavaScript-->
     <script src="/javascripts/asamblea.js"></script>
     <script src="/javascripts/jquery-3.6.3.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
 
         <!--Pie de página-->
-    <footer>
+    <footer class="footer">
         <div class="container-fluid text-center">
         <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
         </div>

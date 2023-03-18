@@ -1,27 +1,30 @@
 const conexion = require('../database/conexion');
 
 exports.save = (req,res)=>{
-    const pregunta = req.body.pregunta;
-    const respuesta1 = req.body.respuesta1;
-    const respuesta2   = req.body.respuesta2;
-    const respuesta3 = req.body.respuesta3;
-    /* prueba de captura los datos */
-    /* console.log(pregunta + " - " + respuesta1 + " - " + respuesta2 + " - " + respuesta3); */
-    conexion.query('insert into emodel.pregunta_asamblea(pregunta_enunciado, bandera_votacion, asamblea_id) SET ?',{pregunta:pregunta, pregunta:'E', pregunta:'1'}, (error, results)=>{
-        if (error){
-            console.log(error);
-        }else{
+    /* capturas las celdas requeridas por el id */
+    const asambleaId = (req.body.asambleaId);
+    const delegadoId = (req.body.delegadoId);
 
+    /* prueba de captura los datos */
+    console.log(asambleaId + " - " + delegadoId);
+  /*   conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
+        if (error){
+            throw error;
+        }else{
+            registrar();
             res.redirect('/');
         }
-    });
-    
-    conexion.query('insert into emodel.pregunta_opciones (pregunta_opcion_orden,pregunta_opcion_enunciado,pregunta_opcion_ordinal, pregunta_opcion_visualizar ,pregunta_id) SET ?',{respuesta1:'1', respuesta1:respuesta1, respuesta1:'a', respuesta1:'S', respuesta1:'2'}, (error, results)=>{
-        if (error){
-            console.log(error);
-        }else{
+    }); */
+}
 
-            res.redirect('/');
+exports.read = (req,res)=>{
+    /* prueba de captura los datos */
+    const cedula = (req.body.cedula);
+    conexion.query(`SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`, (error, results) =>{
+        if (error){
+            throw error;
+        }else{
+            res.render('consulta', {results:results.rows});
         }
     });
 }
