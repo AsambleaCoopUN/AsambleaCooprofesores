@@ -38,7 +38,7 @@ h1{
 
 .main-form{
     width: 50rem;
-    height: 20rem;
+    height: 30rem;
     padding: 1.5rem;
     border: 2px solid #000000;
     margin: 0 auto;
@@ -48,6 +48,16 @@ h1{
 
 .main-form_table{
     text-align: center;
+}
+
+.main-form_table th{
+    background-color: rgb(80, 145, 170);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.main-form_table td{
+    font-size: 1.2rem;
 }
 
 .main-section_form_inpbox{
@@ -69,7 +79,6 @@ h1{
     transform: translate(-50%, -50%);
     
 }
-
 
 .btnregistrar{
     padding: 2rem 1rem;
