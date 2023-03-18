@@ -1,17 +1,20 @@
 const conexion = require('../database/conexion');
 
 exports.save = (req,res)=>{
-    const asamblea = req.body.asamblea;
-    const idUsuario = req.body.idUsuario;
+    /* capturas las celdas requeridas por el id */
+    const asambleaId = (req.body.asambleaId);
+    const delegadoId = (req.body.delegadoId);
+
     /* prueba de captura los datos */
-/*     console.log(cedula + " - " + credencia); */
-conexion.query ('INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id SET ?', {asamblea:asamblea, idUsuario:idUsuario}, (error, results) =>{
-    if (error){
-        throw error;
-    }else{
-        res.redirect('/');
-    }
-});
+    console.log(asambleaId + " - " + delegadoId);
+  /*   conexion.query (`INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`, (error, results) => {
+        if (error){
+            throw error;
+        }else{
+            registrar();
+            res.redirect('/');
+        }
+    }); */
 }
 
 exports.read = (req,res)=>{
