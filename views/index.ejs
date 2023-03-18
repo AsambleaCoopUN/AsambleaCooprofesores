@@ -11,6 +11,7 @@
         <!--Bootstrap-->
         <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
         <!--CSS-->
+        <link href="/stylesheets/styles.css" rel="stylesheet">
         <link href="/stylesheets/styleindex.css" rel="stylesheet">
         <!--Titulo-->
         <title>Sistema de votación</title>
@@ -36,7 +37,14 @@
                         </a>
                         <ul class="navbar-nav d-flex justify-content-center align-items-center">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Registro</a>
+                                <div class="dropdown">
+                                    <a class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-current="page">Registro</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/">Inicial</a></li>
+                                        <li><a class="dropdown-item" href="#">Salida Sala</a></li>
+                                        <li><a class="dropdown-item" href="#">Entrada Sala</a></li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href='/general'>Listado general</a>
@@ -77,10 +85,18 @@
                 </form>
             </section>
         </main>
-    
+
+        <!--Pie de página-->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+            <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
+            </div>
+        </footer>
+        
         <!-- JavaScript -->
         <script src="/javascripts/asamblea.js"></script>
         <script src="/javascripts/jquery-3.6.3.min.js"></script>
         <script src="/dist/js/bootstrap.min.js"></script>
+        <script src="/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
