@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <!--Metadatos-->
+  <meta charset="UTF-8">
+  <meta name="author" content="Desarrolladores: Andres Cardenas y Jeisson Velosa, Base de datos: Miguel Castañeda">
+  <meta name="description" content="Registro de votaciones COOPUN">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--Bootstrap-->
+  <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
+  <!--CSS-->
+  <link href="/stylesheets/styles.css" rel="stylesheet">
+  <!--Titulo-->
+  <title>Sistema de votación</title>
+  <!--Favicon-->
+  <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+</head>
+
+<body>
+  <header>
+    <!--Barra de navegación-->
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggler">
+            <a class="navbar-brand">
+              <figure>
+                <img src="/images/logo_cpun.png" width="250" alt="Logo de la página web">
+              </figure>
+            </a>
+            <ul class="navbar-nav d-flex justify-content-center align-items-center">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Registro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href='/general'>Listado general</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/create">Moderador</a>
+              </li>
+              <li class="nav-item">
+                    <a class="nav-link" href="/view_questions">Listado de preguntas</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- Tabla presentación de Una pregunta seleccionada -->
+    <section>
+      <div class="container" >
+        <!-- Visualización de la pregunta -->
+        <table class="table table-bordered table-striped table-center">
+          <thead>
+            <tr>
+              <th class="col-md-2 main-table_th" scope="col">ID</th>
+              <th class="col-md-10 main-table_th" scope="col">Pregunta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="main-table_td">
+                Numero de pregunta <%=//  %>
+              </td>
+              <td class="main-table_td">
+                Texto de la pregunta <%=// %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Zona para visualizar los resultados de la pregunta seleccionada -->
+        <table class="table table-bordered table-striped table-center mt-4">
+          <thead> 
+            <tr class="main-table_tr">            
+              <th scope="col">Votos SI</th>
+              <th scope="col">Votos No</th>
+              <th scope="col">Votos en Blanco</th>
+              <th scope="col">Total Votos</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%// results.forEach ((user)=> { %>                
+              <tr class="main-table_tr">              
+                <td>
+                # de votos por el SI <%=// %>
+                </td>
+                <td>
+                # de votos por el NO <%=// %>
+                </td>
+                <td>
+                # de votos en blanco <%=// %>
+                </td>
+                <td>
+                Total de votos <%=// %>
+                </td>                
+              </tr>
+            <%// }) %>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!--Pie de página-->
+  <footer class="footer">
+    <div class="container-fluid text-center">
+      <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="/javascripts/asamblea.js"></script>
+  <script src="/javascripts/jquery-3.6.3.min.js"></script>
+  <script src="/dist/js/bootstrap.min.js"></script>
+  <script src="/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

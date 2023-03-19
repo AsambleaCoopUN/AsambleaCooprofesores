@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
   <!--CSS-->
   <link href="/stylesheets/styles.css" rel="stylesheet">
+  <link href="/stylesheets/styleview.css" rel="stylesheet">
   <!--Titulo-->
   <title>Sistema de votación</title>
   <!--Favicon-->
@@ -26,15 +27,15 @@
     <nav class="navbar navbar-expand-md bg-body-tertiary">
       <div class="container-fluid">
         <!-- Botón dispositivos móviles -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"  aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Logotipo y enlaces de navegación -->
-          <div class="collapse navbar-collapse" id="navbarToggler">
+        <div class="collapse navbar-collapse" id="navbarToggler">
           <a class="navbar-brand">
-            <figure>
-              <img src="/images/logo_cpun.png" width="250" alt="Logo de la página web">
-            </figure>
+          <figure>
+            <img src="/images/logo_cpun.png" width="250" alt="Logo de la página web">
+          </figure>
           </a>
           <ul class="navbar-nav d-flex justify-content-center align-items-center">
             <li class="nav-item">
@@ -55,8 +56,36 @@
     </nav>
   </header>
 
-  <main class="main">
-  
+  <main>
+    <!-- Tabla presentación de todas las preguntas -->
+    <section>
+      <div class="container">
+        <table class="table table-bordered table-striped table-center mt-4">
+          <thead>
+            <tr class="main-table_tr">
+              <th class="col-md-2 main-table_th" scope="col">N° Pregunta</th>
+              <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
+              <th class="col-md-2 main-table_th" scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+          <%// results.forEach ((user)=> { %>
+              <tr class="main-table_tr">
+                <td>
+                Numero de consecutivo<%=  %>
+                </td>
+                <td>
+                Texto de la pregunta <%= %>
+                </td>
+                <td>
+                Estado de la pregunta<%= %>
+                </td>             
+              </tr>
+          <%// ({}) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <!--Pie de página-->
@@ -65,7 +94,7 @@
       <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
     </div>
   </footer>
-    
+
   <!-- JavaScript -->
   <script src="/javascripts/asamblea.js"></script>
   <script src="/javascripts/jquery-3.6.3.min.js"></script>
