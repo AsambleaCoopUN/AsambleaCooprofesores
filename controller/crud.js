@@ -41,7 +41,7 @@ exports.pregunta = (req, res) => {
         if (error) {
             throw error;
         } else {
-            res.render('view_Selec_question', { results: results.rows });
+            res.render('view_Selec_question', {results: results.rows});
         }
     });
 }
