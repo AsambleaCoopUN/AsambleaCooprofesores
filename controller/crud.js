@@ -57,3 +57,16 @@ exports.read = (req,res)=>{
         }
     });
 }
+
+exports.pregunta = (req, res) => {
+    const idPregunta = (req.body.id_pregunta);
+    const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
+
+    conexion.query(TexPregunta, (error, results) => {
+        if (error) {
+            throw error;
+        } else {
+            res.render('view_Selec_question', { results: results.rows });
+        }
+    });
+}
