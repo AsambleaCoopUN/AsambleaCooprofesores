@@ -37,6 +37,7 @@ router.get('/consulta', (req,res)=>{
 const crud = require ('./controller/crud');
 router.post('/save', crud.save);
 router.post('/read', crud.read);
+router.post('/pregunta', crud.pregunta);
 
 //enrutamiento para visualizar todas las preguntas 
 router.get('/view_questions', (req, res) => {
@@ -52,9 +53,6 @@ router.get('/view_questions', (req, res) => {
 
 //enrutamiento para visualizar solo una pregunta preguntas 
 router.get('/view_Selec_question', (req, res) => {
-    let id_pregunta = req.query.id;
-    
-
     res.render('view_Selec_question');
 });
 

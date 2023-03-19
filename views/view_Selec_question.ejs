@@ -46,7 +46,7 @@
                 <a class="nav-link" href="/create">Moderador</a>
               </li>
               <li class="nav-item">
-                    <a class="nav-link" href="/view_questions">Listado de preguntas</a>
+                <a class="nav-link" href="/view_questions">Listado de preguntas</a>
               </li>
             </ul>
           </div>
@@ -67,14 +67,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="main-table_td">
-                Numero de preguta <%=//  %>
-              </td>
-              <td class="main-table_td">
-                Texto de la pregunta <%=// %>
-              </td>
-            </tr>
+            <%results.forEach ((user)=> { %>
+              <tr>              
+                <td class="main-table_td"><%=user.orden_pregunta %></td>
+                <td class="main-table_td"><%=user.pregunta_enunciado %></td>
+              </tr>
+            <% }) %>
           </tbody>
         </table>
         <!-- Zona para visualizar los resultados de la pregunta selecionada -->

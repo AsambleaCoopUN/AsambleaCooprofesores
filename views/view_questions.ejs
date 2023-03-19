@@ -57,7 +57,7 @@
     <main>
 <!-- Tabla presentacion de todas las preguntas -->
       <section>
-        <div class="container">
+        <div class="container" action="/pregunta">
           <table class="table-section table-bordered table-striped table-center mt-4">
             <thead>
               <tr class="main-table_tr">
@@ -70,8 +70,11 @@
             <%results.forEach ((user)=> { %>
                 <tr class="main-table_tr">
                   <td><%=user.orden_pregunta%></td>
-                  <td><a href="/view_Selec_question?id=<%= user.id_pregunta %>"><%=user.pregunta_enunciado%></a></td>
-                  <td><%=user.bandera_votacion%></td>                         
+                  <td><a type="submit" href="/view_Selec_question"><%=user.pregunta_enunciado%></a></td>
+                  <td><%=user.bandera_votacion%></td>
+                  <td>
+                    <input type="hidden" name="id_pregunta" value="<%= user.id_pregunta %>" /> 
+                  </td>                        
                 </tr>
             <%}) %>
             </tbody>
