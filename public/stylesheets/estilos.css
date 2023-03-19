@@ -46,7 +46,7 @@ h1{
     position: relative;
 }
 
-.main-form_table{
+.main-form_table, .main-table_th,.main-table_td, .main-table_tr{
     text-align: center;
 }
 
