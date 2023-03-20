@@ -1,4 +1,4 @@
-.table-section {
+.table{
   position: center;
   padding: 1.5rem;
   margin: 0 auto;
@@ -19,7 +19,8 @@
   font-size: 1.5rem;
 }
 
-.main-table_tr{
+.table, .main-table_th {
   font-family: 'Quicksand', sans-serif;
   text-align: center;
+  font-size: 1.8rem;
 }
