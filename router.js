@@ -33,6 +33,9 @@ router.get('/consulta', (req,res)=>{
     res.render('consulta');
 })
 
+router.get('/checkInOut', (req,res)=>{
+    res.render('checkInOut');
+})
 
 const crud = require ('./controller/crud');
 router.post('/save', crud.save);
