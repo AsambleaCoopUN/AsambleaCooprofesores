@@ -4,7 +4,7 @@
         <!--Metadatos-->
         <meta charset="UTF-8">
         <meta name="author" content="Desarrolladores: Andres Cardenas y Jeisson Velosa, Base de datos: Miguel Castañeda">
-        <meta name="description" content="Registro de votaciones COOPUN">
+        <meta name="description" content="Listado delegados">
         <meta name="keywords" content="HTML, CSS, JavaScript">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,9 +12,9 @@
         <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
         <!--CSS-->
         <link href="/stylesheets/styles.css" rel="stylesheet">
-        <link href="/stylesheets/styleindex.css" rel="stylesheet">
+        <link href="/stylesheets/styleSelecQuestion.css" rel="stylesheet">
         <!--Titulo-->
-        <title>Sistema de votación</title>
+        <title>Listado delegados</title>
         <!--Favicon-->
         <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
     </head>
@@ -37,15 +37,7 @@
                         </a>
                         <ul class="navbar-nav d-flex justify-content-center align-items-center">
                             <li class="nav-item">
-                                <div class="dropdown">
-                                    <a class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-current="page">Registro</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="/">Inicial</a></li>
-                                        <li><a class="dropdown-item" href="#">Salida Sala</a></li>
-                                        <li><a class="dropdown-item" href="#">Entrada Sala</a></li>
-                                        <li><a class="dropdown-item" href="/estadoEnSala">Quorum Sala</a></li>
-                                    </ul>
-                                </div>
+                                <a class="nav-link active" aria-current="page" href="/">Registro</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href='/general'>Listado general</a>
@@ -54,36 +46,36 @@
                                 <a class="nav-link" href="/create">Preguntas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" href="/create">Moderador</a>
+                                <a class="nav-link" href="/view_questions">Listado de preguntas</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
-    
+
         <main class="main">
-            <!-- Sección hero -->
-            <section class="main-section_cabecera">   
-                <div id="cabecera" class="d-flex flex-column justify-content-center align-items-center" >
-                    <div class="row col-lg-12 text-center">
-                        <h1>Registro Asamblea <br> Cooperativa de Profesores de la Universidad Nacional </h1>
-                    </div>
-                </div>
-            </section>    
-            
-            <!-- Formulario -->
             <section class="main-section">
-                <form class="main-section_form" action="/read" method="post">
-                    <div class="main-section_form_inpbox mb-4 col-mb-12" >
-                        <label for="cedula" class="form-label">
-                            <input type="text" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Cédula" required>
-                        </label>
-                    </div>
-                    <div class="mb-4 col-mb-12 main-section_form_button">
-                        <button type="submit" class="btn btn-primary btnconsultar" tabindex="5">Consultar</button>
-                    </div>
-                </form>
+                <div class="container">
+                    <table class="main-section_table table table-hover table-bordered table-striped table-center mt-4">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2 main-table_th" scope="col">Documento</th>
+                                <th class="col-md-8 main-table_th"scope="col">Nombre</th>
+                                <th class="col-md-2 main-table_th"scope="col">Estado en Sala</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% results.forEach ((user)=> { %>
+                            <tr>
+                                <td><%= user.delegado_documento_identificacion %></td>
+                                <td><%= user.delegado_nombres %></td>
+                                <td><%= user.estado_asistencia %></td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </main>
 
