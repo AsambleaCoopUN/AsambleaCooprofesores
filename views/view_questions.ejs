@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+  
   <head>
 <!--Metadatos-->
     <meta charset="UTF-8">
     <meta name="author" content="Desarrolladores: Andres Cardenas y Jeisson Velosa, Base de datos: Miguel Castañeda">
-    <meta name="description" content="Listado delegados">
+    <meta name="description" content="Registro de votaciones COOPUN">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,9 +15,11 @@
     <link href="/stylesheets/styles.css" rel="stylesheet">
     <link href="/stylesheets/styleview.css" rel="stylesheet">
 <!--Titulo-->
-    <title>Listado delegados</title>
+    <title>Sistema de votación</title>
 <!--Favicon-->
     <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
   </head>
 
   <body>
@@ -57,29 +60,32 @@
     <main>
 <!-- Tabla presentacion de todas las preguntas -->
       <section>
-        <div class="container" action="/pregunta">
-          <table class="table-section table-bordered table-striped table-center mt-4">
-            <thead>
-              <tr class="main-table_tr">
-                <th class="col-md-2 main-table_th" scope="col">N° Pregunta</th>
-                <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
-                <th class="col-md-2 main-table_th" scope="col">Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-            <%results.forEach ((user)=> { %>
+        <form action="/pregunta" method="post">
+          <div class="container">
+            <table class="table-section table-bordered table-striped table-center mt-4">
+              <thead>
                 <tr class="main-table_tr">
-                  <td><%=user.orden_pregunta%></td>
-                  <td><a type="submit" href="/view_Selec_question"><%=user.pregunta_enunciado%></a></td>
-                  <td><%=user.bandera_votacion%></td>
-                  <td>
-                    <input type="hidden" name="id_pregunta" value="<%= user.id_pregunta %>" /> 
-                  </td>                        
+                  <th class="col-md-1 main-table_th" scope="col">N° Pregunta</th>
+                  <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
+                  <th class="col-md-2 main-table_th" scope="col">Estado</th>
+                  <th class="col-md-1 main-table_th" scope="col">Ver</th>
                 </tr>
-            <%}) %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <%results.forEach ((user)=> { %>
+                  <tr class="main-table_tr">
+                    <td><%=user.orden_pregunta%></td>
+                    <td><%=user.pregunta_enunciado%></a></td>
+                    <td><%=user.estado_pregunta%></td>
+                    <td>
+                      <button type="submit" class="btn btn-success" id="pregunta_id" name="pregunta_id" value="<%=user.pregunta_id %>">IR</button>
+                    </td>                        
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </form>
       </section>
     </main>   
 <!--Pie de página-->

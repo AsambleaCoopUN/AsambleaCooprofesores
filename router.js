@@ -41,19 +41,28 @@ router.post('/pregunta', crud.pregunta);
 
 //enrutamiento para visualizar todas las preguntas 
 router.get('/view_questions', (req, res) => {
-    const lViewAll = `select pregunta_id, orden_pregunta, pregunta_enunciado,case bandera_votacion when 'E' then 'En espera de votación' when 'C' then 'Pregunta Votada' when 'A' then ' Pregunta en proceso de votación' end estado_pregunta from emodel.pregunta_asamblea pa order by pregunta_id`;
+    const lViewAll = `select pregunta_id, orden_pregunta, pregunta_enunciado,case bandera_votacion when 'E' then 'En espera de votación' when 'C' then 'Pregunta Votada' when 'A' then 'Pregunta en proceso de votación' end estado_pregunta from emodel.pregunta_asamblea pa order by pregunta_id`;
+
     conexion.query(lViewAll , (error,results)=>{
         if (error){
             throw error;
-        }else{
-            res.render('view_questions', {results:results.rows});
+        } else {
+            res.render('view_questions', { results: results.rows });
         }
     });
 });
 
-//enrutamiento para visualizar solo una pregunta preguntas 
-router.get('/view_Selec_question', (req, res) => {
-    res.render('view_Selec_question');
-});
+router.get('/estadoEnSala', (req, res) => {
+    const courum = `select d.delegado_documento_identificacion ,d.delegado_nombres ,aa.fecha_hora_registro_entrada , case aa.asistente_activo when true then 'EN SALA' when false then 'FUERA DE SALA' end estado_asistencia from emodel.delegado d inner join emodel.asistencia_asamblea aa on d.delegado_id = aa.delegado_id and aa.asamblea_id = 1 order by estado_asistencia, fecha_hora_registro_entrada`;
+
+    conexion.query(courum , (error,results)=>{
+        if (error){
+            throw error;
+        } else {
+            res.render('estadoEnSala', { results: results.rows });
+        }
+    });
+ //res.render('estadoEnSala');
+})
 
 module.exports = router;

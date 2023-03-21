@@ -59,14 +59,18 @@ exports.read = (req,res)=>{
 }
 
 exports.pregunta = (req, res) => {
-    const idPregunta = (req.body.id_pregunta);
+    /* Query de búsqueda una pregunta expecifica por ID y envia el enunciado y el # de la pregunta*/
+    const idPregunta = (req.body.pregunta_id);
+    
     const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
 
+    const expecificQuestion = `SELECT po.pregunta_opcion_orden ,po.pregunta_opcion_enunciado,crpm.votos_opcion, votos_validos ,minimo_valor_triunfo , pa.tipo_pregunta from emodel.calcula_resultado_pregunta_mayoria crpm inner join emodel.pregunta_opciones po on po.pregunta_opcion_id = crpm.opcion_id and  po.pregunta_id =crpm.pregunta_id inner join emodel.pregunta_asamblea pa on pa.pregunta_id = crpm.pregunta_id WHERE crpm.pregunta_id = '${idPregunta}'`;
+    
     conexion.query(TexPregunta, (error, results) => {
         if (error) {
             throw error;
         } else {
-            res.render('view_Selec_question', { results: results.rows });
+            res.render('view_Selec_question', {results: results.rows});
         }
     });
 }
