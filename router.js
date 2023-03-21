@@ -37,7 +37,7 @@ router.get('/consulta', (req,res)=>{
 const crud = require ('./controller/crud');
 router.post('/save', crud.save);
 router.post('/read', crud.read);
-//router.post('/pregunta', crud.pregunta);
+router.post('/pregunta', crud.pregunta);
 
 //enrutamiento para visualizar todas las preguntas 
 router.get('/view_questions', (req, res) => {
@@ -46,25 +46,10 @@ router.get('/view_questions', (req, res) => {
     conexion.query(lViewAll , (error,results)=>{
         if (error){
             throw error;
-        } else {            
-            res.render('view_questions', {results:results.rows});
-        }
-    });
-});
-
-//enrutamiento para visualizar solo una pregunta preguntas 
-router.get('/view_Selec_question', (req, res) => {
-    const idPregunta = (req.body.pregunta_id);
-    const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`; 
-        
-    conexion.query(TexPregunta, (error, results) => {
-        if (error) {
-            throw error;
         } else {
-            res.render('view_Selec_question', {results: results.rows});
+            res.render('view_questions', { results: results.rows });
         }
     });
-    res.render('view_Selec_question');
 });
 
 module.exports = router;

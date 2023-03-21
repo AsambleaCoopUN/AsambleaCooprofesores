@@ -60,29 +60,32 @@
     <main>
 <!-- Tabla presentacion de todas las preguntas -->
       <section>
-        <div class="container" action="/pregunta" method="post">
-          <table class="table-section table-bordered table-striped table-center mt-4">
-            <thead>
-              <tr class="main-table_tr">
-                <th class="col-md-2 main-table_th" scope="col">N° Pregunta</th>
-                <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
-                <th class="col-md-2 main-table_th" scope="col">Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%results.forEach ((user)=> { %>
+        <form action="/pregunta" method="post">
+          <div class="container">
+            <table class="table-section table-bordered table-striped table-center mt-4">
+              <thead>
                 <tr class="main-table_tr">
-                  <td><%=user.orden_pregunta%></td>
-                  <td><a type="submit" href="/view_Selec_question"><%=user.pregunta_enunciado%></a></td>
-                  <td><%=user.estado_pregunta%></td>
-                  <td>
-                    <input type="hidden" name="pregunta_id" value="<%=user.pregunta_id %>" /> 
-                  </td>                        
+                  <th class="col-md-1 main-table_th" scope="col">N° Pregunta</th>
+                  <th class="col-md-8 main-table_th" scope="col">Enunciado</th>
+                  <th class="col-md-2 main-table_th" scope="col">Estado</th>
+                  <th class="col-md-1 main-table_th" scope="col">Ver</th>
                 </tr>
-              <% }) %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                <%results.forEach ((user)=> { %>
+                  <tr class="main-table_tr">
+                    <td><%=user.orden_pregunta%></td>
+                    <td><%=user.pregunta_enunciado%></a></td>
+                    <td><%=user.estado_pregunta%></td>
+                    <td>
+                      <button type="submit" class="btn btn-success id="pregunta_id" name="pregunta_id" value="<%=user.pregunta_id %>">IR</button>
+                    </td>                        
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </form>
       </section>
     </main>   
 <!--Pie de página-->
