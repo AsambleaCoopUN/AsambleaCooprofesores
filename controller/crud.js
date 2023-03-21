@@ -1,66 +1,35 @@
+const { NULL } = require('mysql/lib/protocol/constants/types');
 const conexion = require('../database/conexion');
 
 exports.save = (req,res)=>{
     //* Captura las celdas requeridas por el id */
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
+    const fechareg = req.body.fechareg;
 
     /* Query de que inserta los en la tabla asistencia_asamblea los datos recibidos*/
     const insert = `INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`;
-
-    /* Query de búsqueda los registros recibidos*/
-    const validate = `SELECT aa.asamblea_id, aa.delegado_id, aa.fecha_hora_registro_entrada FROM emodel.asistencia_asamblea aa WHERE delegado_id = '${delegadoId}'`;
-    /* console.log(validate)
-    conexion.query(validate, (error, results) => {
-      if (error) {
-          throw error;
-      }else{
-        const fecha = validate.rows.fecha_hora_registro_entrada;
-        res.redirect('/');
-      }
-      });
     
-    console.log(fecha) */
-    /* if (fecha===NULL){
-        try {
-            conexion.query(validate, (error, results) => {
-                if (error) {
-                    throw error;
-                } else if (results.length === 0) {
-                    conexion.query(insert, (error, results) => {
-                        if (error) {
-                            throw error;
-                        } else {
-                            res.send("Registro Satisfactorio");
-                        }
-                    });
-                } else {
-                    res.send("Usuario ya registrado");
-                }
-            });
-        } catch (error) {
-        console.log(error.name, error.message);
-    }
+    if (fechareg === ""){
+        /* Query de inserción a la base de datos de los campos "asamblea_id" y "delegado_id"*/
+        conexion.query (insert, (error, results) => {
+            if (error){
+                throw error;
+            }else{
+                res.redirect('/');
+            }
+        });
     }else{
-        console.log('la cago');
-        res.redirect('/');
-    } */
-    
-    /* Query de inserción a la base de datos de los campos "asamblea_id" y "delegado_id"*/
-    conexion.query (insert, (error, results) => {
-        if (error){
-            throw error;
-        }else{
-            res.redirect('/');
-        }
-    });
+        console.log('Usuario ya existe');
+        res.redirect('/')
+    }
 }
 
 exports.read = (req,res)=>{
     /* se asigna la cédula recibida a una constante */
     const cedula = (req.body.cedula);
     /* Query de búsqueda a la base de datos por el número de cedula*/
-    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`;
+    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada FROM emodel.asamblea a, emodel.delegado d, emodel.asistencia_asamblea aa WHERE d.delegado_documento_identificacion = '${cedula}'`;
     
     /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
     conexion.query(search, (error, results) =>{
@@ -92,5 +61,5 @@ exports.pregunta = (req, res) => {
 
 exports.salaInOut = (req,res) => {
   const cedula = (req.body.cedula);
-  
+  const inOut = call `emodel.registrar_evento_asistencia_asamblea ('entrada','83p')`;
 }

@@ -71,21 +71,22 @@
               </tr>
             </thead>
               <tbody>
-                <% results.forEach ((user)=> { %>
+                <% if(results.length>0) { %>
                 <tr>
-                  <td><%= user.asamblea_id %></td>
-                  <td> <%= user.delegado_id %></td>
-                  <td><%= user.delegado_documento_identificacion %></td>
-                  <td><%= user.delegado_nombres %></td>
-                  <td><%= user.delegado_tipo %></td>
+                  <td><%= results[0].asamblea_id %></td>
+                  <td> <%= results[0].delegado_id %></td>
+                  <td><%= results[0].delegado_documento_identificacion %></td>
+                  <td><%= results[0].delegado_nombres %></td>
+                  <td><%= results[0].delegado_tipo %></td>
                 </tr>
-                <td>
-                    <input type="hidden" name="asambleaId" value="<%= user.asamblea_id %>" />
-                </td>
-                <td>
-                    <input type="hidden" name="delegadoId" value="<%= user.delegado_id %>" />
-                </td>
-                <% }) %>
+                <tr>
+                  <td>
+                      <input type="hidden" name="asambleaId" value="<%= results.asamblea_id %>" />
+                      <input type="hidden" name="delegadoId" value="<%= results.delegado_id %>" />
+                      <input type="hidden" name="fechareg" value="<%= results.fecha_hora_registro_entrada %>" />
+                  </td>
+                </tr>
+                <% } %>
               </tbody>
           </table>
           <div class="main-section_form_button">
