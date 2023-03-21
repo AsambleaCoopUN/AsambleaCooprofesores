@@ -9,37 +9,51 @@ exports.save = (req,res)=>{
     const insert = `INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`;
 
     /* Query de búsqueda los registros recibidos*/
-    const validate = `SELECT aa.asamblea_id, aa.delegado_id, aa.fecha_hora_registro_entrada FROM emodel.asistencia_asamblea aa WHERE asamblea_id = '${asambleaId}' AND delegado_id = '${delegadoId}' AND fecha_hora_registro_entrada IS NOT NULL`;
+    const validate = `SELECT aa.asamblea_id, aa.delegado_id, aa.fecha_hora_registro_entrada FROM emodel.asistencia_asamblea aa WHERE delegado_id = '${delegadoId}'`;
+    /* console.log(validate)
+    conexion.query(validate, (error, results) => {
+      if (error) {
+          throw error;
+      }else{
+        const fecha = validate.rows.fecha_hora_registro_entrada;
+        res.redirect('/');
+      }
+      });
     
-    try{
-        conexion.query(validate, (error, results) => {
-            if (error) {
-                throw error;
-            } else if (results.length === 0) {
-                conexion.query(insert, (error, results) => {
-                    if (error) {
-                        throw error;
-                    } else {
-                        res.send("Registro Satisfactorio");
-                    }
-                });
-            } else {
-                res.send("Usuario ya registrado");
-            }
-        });
-    }catch(error ){
+    console.log(fecha) */
+    /* if (fecha===NULL){
+        try {
+            conexion.query(validate, (error, results) => {
+                if (error) {
+                    throw error;
+                } else if (results.length === 0) {
+                    conexion.query(insert, (error, results) => {
+                        if (error) {
+                            throw error;
+                        } else {
+                            res.send("Registro Satisfactorio");
+                        }
+                    });
+                } else {
+                    res.send("Usuario ya registrado");
+                }
+            });
+        } catch (error) {
         console.log(error.name, error.message);
     }
-    console.log("la cago");
-    res.render('/');
+    }else{
+        console.log('la cago');
+        res.redirect('/');
+    } */
+    
     /* Query de inserción a la base de datos de los campos "asamblea_id" y "delegado_id"*/
-    /* conexion.query (insert, (error, results) => {
+    conexion.query (insert, (error, results) => {
         if (error){
             throw error;
         }else{
             res.redirect('/');
         }
-    }); */
+    });
 }
 
 exports.read = (req,res)=>{
@@ -73,4 +87,10 @@ exports.pregunta = (req, res) => {
             res.render('view_Selec_question', {results: results.rows});
         }
     });
+}
+
+
+exports.salaInOut = (req,res) => {
+  const cedula = (req.body.cedula);
+  
 }

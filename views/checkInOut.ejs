@@ -39,14 +39,7 @@
           </a>
           <ul class="navbar-nav d-flex justify-content-center align-items-center">
             <li class="nav-item">
-              <div class="dropdown">
-                <a class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-current="page">Registro</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/">Inicial</a></li>
-                  <li><a class="dropdown-item" href="#">Salida Sala</a></li>
-                  <li><a class="dropdown-item" href="#">Entrada Sala</a></li>
-                </ul>
-              </div>
+              <a class="nav-link active" aria-current="page" href="/">Registro</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href='/general'>Listado general</a>
@@ -75,14 +68,15 @@
       
     <!-- Formulario -->
     <section class="main-section">
-      <form class="main-section_form" action="/read" method="post">
+      <form class="main-section_form" action="/salaInOut" method="post">
         <div class="main-section_form_inpbox mb-4 col-mb-12" >
           <label for="cedula" class="form-label">
-            <input type="text" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Cédula" required>
+            <input type="text" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Código alterno" required>
           </label>
         </div>
-        <div class="mb-4 col-mb-12 main-section_form_button">
-          <button type="submit" class="btn btn-primary btnconsultar" tabindex="5">Consultar</button>
+        <div class="main-section_form_button">
+          <button type="submit" class="btn btn-success boton" tabindex="5">Entrada sala</button>
+          <button type="submit" class="btn btn-primary boton" tabindex="6">Salida sala</button>
         </div>
       </form>
     </section>
