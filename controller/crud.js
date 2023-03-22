@@ -6,7 +6,7 @@ exports.save = (req, res) => {
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
 
-    /* quiery que busca la fecha de registro validado contra el id del usuario */
+    /* query que busca la fecha de registro validado contra el id del usuario */
     const fechareg = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada 
     FROM emodel.asamblea a, emodel.delegado d, emodel.asistencia_asamblea aa 
     where aa.delegado_id = d.delegado_id and aa.asamblea_id = a.asamblea_id and  
@@ -15,6 +15,7 @@ exports.save = (req, res) => {
     /* Query de que inserta los en la tabla asistencia_asamblea los datos recibidos*/
     const insert = `INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`;
   
+    /* método que valida si el campo fecha esta vacío y procede con el registro o devuelve indicando con un mensaje lo sucedido */
     conexion.query(fechareg, (error, results) => {
       if (error) {
         console.log(error);
@@ -24,15 +25,18 @@ exports.save = (req, res) => {
           conexion.query(insert, (error, results) => {
             if (error) {
               console.log(error);
-              res.redirect('/');
+              const message = 'El usuario ya ha registrado su asistencia';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             } else {
               console.log('registro satisfactorio')
-              res.redirect('/');
+              const message = 'La asistencia ha sido registrada satisfactoriamente';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             }
           });
         } else {
           console.log('Usuario ya existe');
-          res.redirect('/');
+          const message = 'El usuario ya ha registrado su asistencia';
+          res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
         }
       }
     });
@@ -55,7 +59,7 @@ exports.read = (req,res)=>{
 }
 
 exports.pregunta = (req, res) => {
-    /* Query de búsqueda una pregunta expecifica por ID y envia el enunciado y el # de la pregunta*/
+    /* Query de búsqueda una pregunta especifica por ID y envía el enunciado y el # de la pregunta*/
     const idPregunta = (req.body.pregunta_id);
     
     const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
@@ -73,6 +77,9 @@ exports.pregunta = (req, res) => {
 
 
 exports.salaInOut = (req,res) => {
-  const cedula = (req.body.cedula);
-  const inOut = call `emodel.registrar_evento_asistencia_asamblea ('entrada','83p')`;
+  const evento = (req.body.evento);
+  const alterno = (req.body.alterno);
+  const inOut = call `emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
+
+
 }

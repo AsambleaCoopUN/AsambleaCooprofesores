@@ -41,6 +41,7 @@ const crud = require ('./controller/crud');
 router.post('/save', crud.save);
 router.post('/read', crud.read);
 router.post('/pregunta', crud.pregunta);
+router.post('/salaInOut', crud.salaInOut);
 
 //enrutamiento para visualizar todas las preguntas 
 router.get('/view_questions', (req, res) => {
