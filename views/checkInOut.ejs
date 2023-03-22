@@ -71,13 +71,13 @@
       <form class="main-section_form" action="/salaInOut" method="post">
         <div class="main-section_form_inpbox mb-4 col-mb-12" >
           <label for="cedula" class="form-label">
-            <input type="text" class="form-control" id="alterno" name="alterno" aria-describedby="cedula" placeholder="Código alterno" required>
+            <input type="text" class="form-control" id="alterno" name="alterno" aria-describedby="cedula" placeholder="Código alterno" maxlength="5" required>
           </label>
         </div>
         <div class="main-section_form_button">
-          <button type="submit" class="btn btn-success boton" tabindex="5" value="entrada">Entrada sala</button>
-          <button type="submit" class="btn btn-primary boton" tabindex="6" value="salida">Salida sala</button>
-        </div>
+          <button type="submit" class="btn btn-success boton" name="evento" tabindex="5" value="ENTRADA">Entrada sala</button>
+          <button type="submit" class="btn btn-primary boton" name="evento" tabindex="6" value="SALIDA">Salida sala</button>
+        </div>  
       </form>
     </section>
   </main>

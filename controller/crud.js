@@ -1,4 +1,3 @@
-const { NULL } = require('mysql/lib/protocol/constants/types');
 const conexion = require('../database/conexion');
 
 exports.save = (req, res) => {
@@ -79,7 +78,34 @@ exports.pregunta = (req, res) => {
 exports.salaInOut = (req,res) => {
   const evento = (req.body.evento);
   const alterno = (req.body.alterno);
-  const inOut = call `emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
+  const inOut = `call emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
 
+  /* console.log(evento+" - "+ alterno);
+  const message = 'el usuario de código '+ alterno + "estado "+ evento ;
+  res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`); */
 
+  if (evento === "SALIDA"){
+    conexion.query(inOut, (error, results) => {
+      if (error) {
+        console.log(error);
+        const message = 'el usuario se encuentra fuera de la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      } else {
+        console.log(error);
+        const message = 'el usuario se retira de la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      }
+    });
+  }else{
+    conexion.query(inOut, (error, results) => {
+      if (error) {
+        console.log(error);
+        const message = 'el usuario se encuentra en la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      } else {
+        const message = 'el usuario reingresa a la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      }
+    });
+  }
 }
