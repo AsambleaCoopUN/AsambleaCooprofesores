@@ -76,9 +76,9 @@ exports.pregunta = (req, res) => {
     /* Query de búsqueda una pregunta expecifica por ID y envia el enunciado y el # de la pregunta*/
     const idPregunta = (req.body.pregunta_id);
     
-    const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
+    //const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
 
-    // const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_orden, po pregunta_opcion_enunciado, crpm.votos_opcion, crpm.votos_validos, crpm.minimo_valor_triunfo, pa.tipo_pregunta FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON po.pregunta_id = pa.pregunta_id INNER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id AND crpm.pregunta_id = pa.pregunta_id WHERE pa.pregunta_id = '${idPregunta}'`;
+    const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${idPregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
     
     conexion.query(TexPregunta, (error, results) => {
         if (error) {
