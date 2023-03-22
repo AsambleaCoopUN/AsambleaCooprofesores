@@ -1,35 +1,48 @@
 const { NULL } = require('mysql/lib/protocol/constants/types');
 const conexion = require('../database/conexion');
 
-exports.save = (req,res)=>{
+exports.save = (req, res) => {
     //* Captura las celdas requeridas por el id */
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
-    const fechareg = req.body.fechareg;
 
+    /* quiery que busca la fecha de registro validado contra el id del usuario */
+    const fechareg = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada 
+    FROM emodel.asamblea a, emodel.delegado d, emodel.asistencia_asamblea aa 
+    where aa.delegado_id = d.delegado_id and aa.asamblea_id = a.asamblea_id and  
+    aa.delegado_id = '${delegadoId}'`;
+  
     /* Query de que inserta los en la tabla asistencia_asamblea los datos recibidos*/
     const insert = `INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`;
-    
-    if (fechareg === ""){
-        /* Query de inserción a la base de datos de los campos "asamblea_id" y "delegado_id"*/
-        conexion.query (insert, (error, results) => {
-            if (error){
-                throw error;
-            }else{
-                res.redirect('/');
+  
+    conexion.query(fechareg, (error, results) => {
+      if (error) {
+        console.log(error);
+        res.redirect('/');
+      } else {
+        if (results.fecha_hora_registro_entrada != "") {
+          conexion.query(insert, (error, results) => {
+            if (error) {
+              console.log(error);
+              res.redirect('/');
+            } else {
+              console.log('registro satisfactorio')
+              res.redirect('/');
             }
-        });
-    }else{
-        console.log('Usuario ya existe');
-        res.redirect('/')
-    }
-}
+          });
+        } else {
+          console.log('Usuario ya existe');
+          res.redirect('/');
+        }
+      }
+    });
+  }
 
 exports.read = (req,res)=>{
     /* se asigna la cédula recibida a una constante */
     const cedula = (req.body.cedula);
     /* Query de búsqueda a la base de datos por el número de cedula*/
-    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada FROM emodel.asamblea a, emodel.delegado d, emodel.asistencia_asamblea aa WHERE d.delegado_documento_identificacion = '${cedula}'`;
+    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE  d.delegado_documento_identificacion = '${cedula}'`;
     
     /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
     conexion.query(search, (error, results) =>{
