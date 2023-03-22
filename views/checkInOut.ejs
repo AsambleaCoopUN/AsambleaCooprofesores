@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
   <!--CSS-->
   <link href="/stylesheets/styles.css" rel="stylesheet">
-  <link href="/stylesheets/styleindex.css" rel="stylesheet">
+  <link href="/stylesheets/styleInOut.css" rel="stylesheet">
   <!--Titulo-->
   <title>Sistema de votación</title>
   <!--Favicon-->
@@ -61,7 +61,7 @@
     <section class="main-section_cabecera">   
       <div id="cabecera" class="d-flex flex-column justify-content-center align-items-center" >
         <div class="row col-lg-12 text-center">
-          <h1>Registro Asamblea <br> Cooperativa de Profesores de la Universidad Nacional </h1>
+          <h1>Control de ingresos</h1>
         </div>
       </div>
     </section>    
@@ -71,13 +71,13 @@
       <form class="main-section_form" action="/salaInOut" method="post">
         <div class="main-section_form_inpbox mb-4 col-mb-12" >
           <label for="cedula" class="form-label">
-            <input type="text" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Código alterno" required>
+            <input type="text" class="form-control" id="alterno" name="alterno" aria-describedby="cedula" placeholder="Código alterno" maxlength="5" required>
           </label>
         </div>
         <div class="main-section_form_button">
-          <button type="submit" class="btn btn-success boton" tabindex="5">Entrada sala</button>
-          <button type="submit" class="btn btn-primary boton" tabindex="6">Salida sala</button>
-        </div>
+          <button type="submit" class="btn btn-success boton" name="evento" tabindex="5" value="ENTRADA">Entrada sala</button>
+          <button type="submit" class="btn btn-primary boton" name="evento" tabindex="6" value="SALIDA">Salida sala</button>
+        </div>  
       </form>
     </section>
   </main>

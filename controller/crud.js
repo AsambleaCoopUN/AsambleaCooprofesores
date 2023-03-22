@@ -1,66 +1,51 @@
 const conexion = require('../database/conexion');
 
-exports.save = (req,res)=>{
+exports.save = (req, res) => {
     //* Captura las celdas requeridas por el id */
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
 
+    /* query que busca la fecha de registro validado contra el id del usuario */
+    const fechareg = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada 
+    FROM emodel.asamblea a, emodel.delegado d, emodel.asistencia_asamblea aa 
+    where aa.delegado_id = d.delegado_id and aa.asamblea_id = a.asamblea_id and  
+    aa.delegado_id = '${delegadoId}'`;
+  
     /* Query de que inserta los en la tabla asistencia_asamblea los datos recibidos*/
     const insert = `INSERT INTO emodel.asistencia_asamblea (asamblea_id, delegado_id) VALUES ('${asambleaId}','${delegadoId}')`;
-
-    /* Query de búsqueda los registros recibidos*/
-    const validate = `SELECT aa.asamblea_id, aa.delegado_id, aa.fecha_hora_registro_entrada FROM emodel.asistencia_asamblea aa WHERE delegado_id = '${delegadoId}'`;
-    /* console.log(validate)
-    conexion.query(validate, (error, results) => {
+  
+    /* método que valida si el campo fecha esta vacío y procede con el registro o devuelve indicando con un mensaje lo sucedido */
+    conexion.query(fechareg, (error, results) => {
       if (error) {
-          throw error;
-      }else{
-        const fecha = validate.rows.fecha_hora_registro_entrada;
+        console.log(error);
         res.redirect('/');
-      }
-      });
-    
-    console.log(fecha) */
-    /* if (fecha===NULL){
-        try {
-            conexion.query(validate, (error, results) => {
-                if (error) {
-                    throw error;
-                } else if (results.length === 0) {
-                    conexion.query(insert, (error, results) => {
-                        if (error) {
-                            throw error;
-                        } else {
-                            res.send("Registro Satisfactorio");
-                        }
-                    });
-                } else {
-                    res.send("Usuario ya registrado");
-                }
-            });
-        } catch (error) {
-        console.log(error.name, error.message);
-    }
-    }else{
-        console.log('la cago');
-        res.redirect('/');
-    } */
-    
-    /* Query de inserción a la base de datos de los campos "asamblea_id" y "delegado_id"*/
-    conexion.query (insert, (error, results) => {
-        if (error){
-            throw error;
-        }else{
-            res.redirect('/');
+      } else {
+        if (results.fecha_hora_registro_entrada != "") {
+          conexion.query(insert, (error, results) => {
+            if (error) {
+              console.log(error);
+              const message = 'El usuario ya ha registrado su asistencia';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
+            } else {
+              console.log('registro satisfactorio')
+              const message = 'La asistencia ha sido registrada satisfactoriamente';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
+            }
+          });
+        } else {
+          console.log('Usuario ya existe');
+          const message = 'El usuario ya ha registrado su asistencia';
+          res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
         }
+      }
     });
-}
+  }
 
 exports.read = (req,res)=>{
     /* se asigna la cédula recibida a una constante */
     const cedula = (req.body.cedula);
     /* Query de búsqueda a la base de datos por el número de cedula*/
-    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE d.delegado_documento_identificacion = '${cedula}'`;
+    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE  d.delegado_documento_identificacion = '${cedula}'`;
     
     /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
     conexion.query(search, (error, results) =>{
@@ -73,7 +58,7 @@ exports.read = (req,res)=>{
 }
 
 exports.pregunta = (req, res) => {
-    /* Query de búsqueda una pregunta expecifica por ID y envia el enunciado y el # de la pregunta*/
+    /* Query de búsqueda una pregunta especifica por ID y envía el enunciado y el # de la pregunta*/
     const idPregunta = (req.body.pregunta_id);
     
     //const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado FROM emodel.pregunta_asamblea pa WHERE pa.pregunta_id = '${idPregunta}'`;
@@ -91,6 +76,36 @@ exports.pregunta = (req, res) => {
 
 
 exports.salaInOut = (req,res) => {
-  const cedula = (req.body.cedula);
-  
+  const evento = (req.body.evento);
+  const alterno = (req.body.alterno);
+  const inOut = `call emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
+
+  /* console.log(evento+" - "+ alterno);
+  const message = 'el usuario de código '+ alterno + "estado "+ evento ;
+  res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`); */
+
+  if (evento === "SALIDA"){
+    conexion.query(inOut, (error, results) => {
+      if (error) {
+        console.log(error);
+        const message = 'el usuario se encuentra fuera de la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      } else {
+        console.log(error);
+        const message = 'el usuario se retira de la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      }
+    });
+  }else{
+    conexion.query(inOut, (error, results) => {
+      if (error) {
+        console.log(error);
+        const message = 'el usuario se encuentra en la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      } else {
+        const message = 'el usuario reingresa a la sala';
+        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      }
+    });
+  }
 }

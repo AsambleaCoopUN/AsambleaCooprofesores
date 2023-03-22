@@ -79,12 +79,12 @@
                   <td><%= user.delegado_nombres %></td>
                   <td><%= user.delegado_tipo %></td>
                 </tr>
-                <td>
-                    <input type="hidden" name="asambleaId" value="<%= user.asamblea_id %>" />
-                </td>
-                <td>
-                    <input type="hidden" name="delegadoId" value="<%= user.delegado_id %>" />
-                </td>
+                <tr>
+                  <td>
+                      <input type="hidden" name="asambleaId" value="<%= user.asamblea_id %>" />
+                      <input type="hidden" name="delegadoId" value="<%= user.delegado_id %>" />
+                  </td>
+                </tr>
                 <% }) %>
               </tbody>
           </table>
