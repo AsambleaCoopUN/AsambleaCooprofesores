@@ -64,16 +64,62 @@ exports.pregunta = (req, res) => {
     //const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_orden, po.pregunta_opcion_enunciado, crpm.votos_opcion, crpm.votos_validos, crpm.minimo_valor_triunfo, pa.tipo_pregunta FROM emodel.pregunta_asamblea pa INNER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON pa.pregunta_id = crpm.pregunta_id INNER JOIN emodel.pregunta_opciones po ON po.pregunta_opcion_id = crpm.opcion_id AND po.pregunta_id = crpm.pregunta_id WHERE pa.pregunta_id = '${idPregunta}'`;
 
     const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${idPregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
-    
-    conexion.query(TexPregunta, (error, results) => {
-        if (error) {
-            throw error;
-        } else {
-            res.render('view_Selec_question', {results: results.rows});
-        }
-    });
-}
 
+    const votos = `select distinct votos_validos 
+    from emodel.calcula_resultado_pregunta_cuociente rpc
+    inner join emodel.pregunta_asamblea pa 
+    on pa.pregunta_id = rpc.pregunta_id  
+    where  pa.bandera_votacion ='A' and cargo ='PRINCIPAL'`;
+
+    const cociente = `select distinct cuociente from emodel.calcula_resultado_pregunta_cuociente rpc
+    inner join emodel.pregunta_asamblea pa 
+    on pa.pregunta_id = rpc.pregunta_id  
+    where pa.bandera_votacion ='A' and cargo ='PRINCIPAL'`;
+
+  const curules = `select po.pregunta_opcion_enunciado ,rpc.curules_cuociente + rpc.cuociente_residuo as cifra_repartidora,
+  rpc.curules_cuociente , rpc.curules_residuo , rpc.curules_cuociente + rpc.curules_residuo total_curules
+  from emodel.calcula_resultado_pregunta_cuociente rpc
+  inner join emodel.pregunta_opciones po 
+  on po.pregunta_opcion_id  = rpc.opcion_id 
+  inner join emodel.pregunta_asamblea pa 
+  on pa.pregunta_id = rpc.pregunta_id  
+  where pa.bandera_votacion ='A' and cargo ='PRINCIPAL'
+  order by po.pregunta_opcion_orden ;`;
+
+  if (idPregunta != "39"){
+    conexion.query(TexPregunta, (error, results) => {
+      if (error) {
+          throw error;
+      } else {
+          res.render('view_Selec_question', {results: results.rows});
+      }
+  });
+  }else{
+    conexion.query(votos, (error1, results1) => {
+      if (error1) {
+        throw error1;
+      } else {
+        conexion.query(cociente, (error2, results2) => {
+          if (error2) {
+            throw error2;
+          } else {
+            conexion.query(curules, (error3, results3) => {
+              if (error3) {
+                throw error3;
+              } else {
+                res.render('view_cociente', {
+                votos: results1.rows,
+                cociente: results2.rows,
+                curules: results3.rows
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  }
 
 exports.salaInOut = (req,res) => {
   const evento = (req.body.evento);

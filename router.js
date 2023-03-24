@@ -25,8 +25,8 @@ router.get('/general', (req, res) => {
     });
 })
 
-router.get('/create', (req,res)=>{
-    res.render('create');
+router.get('/view_cociente', (req,res)=>{
+    res.render('view_cociente');
 })
 
 router.get('/consulta', (req,res)=>{
@@ -45,7 +45,7 @@ router.post('/salaInOut', crud.salaInOut);
 
 //enrutamiento para visualizar todas las preguntas 
 router.get('/view_questions', (req, res) => {
-    const lViewAll = `select pregunta_id, orden_pregunta, pregunta_enunciado,case bandera_votacion when 'E' then 'En espera de votación' when 'C' then 'Pregunta Votada' when 'A' then 'Pregunta en proceso de votación' end estado_pregunta from emodel.pregunta_asamblea pa order by pregunta_id`;
+    const lViewAll = `select pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta, case bandera_votacion when 'E' then 'En espera de votación' when 'C' then 'Pregunta Votada' when 'A' then 'Pregunta en proceso de votación' end estado_pregunta from emodel.pregunta_asamblea pa order by pregunta_id`;
 
     conexion.query(lViewAll , (error,results)=>{
         if (error){
