@@ -58,22 +58,67 @@ exports.read = (req,res)=>{
 }
 
 exports.pregunta = (req, res) => {
-    /* Query de búsqueda una pregunta especifica por ID y envía el enunciado y el # de la pregunta*/
-    const idPregunta = (req.body.pregunta_id);
-    
-    //const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_orden, po.pregunta_opcion_enunciado, crpm.votos_opcion, crpm.votos_validos, crpm.minimo_valor_triunfo, pa.tipo_pregunta FROM emodel.pregunta_asamblea pa INNER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON pa.pregunta_id = crpm.pregunta_id INNER JOIN emodel.pregunta_opciones po ON po.pregunta_opcion_id = crpm.opcion_id AND po.pregunta_id = crpm.pregunta_id WHERE pa.pregunta_id = '${idPregunta}'`;
+  const idPregunta = req.body.pregunta_id;
 
-    const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${idPregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
-    
+  const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion 
+                        FROM emodel.pregunta_asamblea pa 
+                        INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id 
+                        LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id 
+                        WHERE pa.pregunta_id = '${idPregunta}' 
+                        ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+
+  const votos = `SELECT DISTINCT votos_validos 
+                  FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                  INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                  WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL';`;
+
+  const cociente = `SELECT DISTINCT cuociente 
+                    FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                    INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                    WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL';`;
+
+  const curules = `SELECT po.pregunta_opcion_enunciado, rpc.curules_cuociente + rpc.cuociente_residuo AS cifra_repartidora, 
+                    rpc.curules_cuociente, rpc.curules_residuo, rpc.curules_cuociente + rpc.curules_residuo total_curules 
+                    FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                    INNER JOIN emodel.pregunta_opciones po ON po.pregunta_opcion_id = rpc.opcion_id 
+                    INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                    WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL' 
+                    ORDER BY po.pregunta_opcion_orden;`; 
+
+  if (idPregunta != "39") { 
     conexion.query(TexPregunta, (error, results) => {
-        if (error) {
-            throw error;
-        } else {
-            res.render('view_Selec_question', {results: results.rows});
-        }
+      if (error) {
+        throw error;
+      } else {
+        res.render('view_Selec_question', { results: results.rows });
+      }
     });
+  } else {
+    conexion.query(votos, (error1, results1) => {
+      if (error1) {
+        throw error1;
+      } else {
+        conexion.query(cociente, (error2, results2) => {
+          if (error2) {
+            throw error2;
+          } else {
+            conexion.query(curules, (error3, results3) => {
+              if (error3) {
+                throw error3;
+              } else {
+                res.render('view_cociente', {
+                  results1: results1.rows,
+                  results2: results2.rows,
+                  results3: results3.rows,
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  }
 }
-
 
 exports.salaInOut = (req,res) => {
   const evento = (req.body.evento);

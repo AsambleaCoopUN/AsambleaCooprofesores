@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
 <!--CSS-->
     <link href="/stylesheets/styles.css" rel="stylesheet">
-    <link href="/stylesheets/styleSelecQuestion.css" rel="stylesheet">
+    <link href="/stylesheets/styleview_cociente.css" rel="stylesheet">
 <!--Titulo-->
     <title>Sistema de votación</title>
 <!--Favicon-->
@@ -58,44 +58,50 @@
     </div>
   </header>
   <main>
-<!-- Tabla presentacion de Una pregunta selecionada -->
+    <!-- Tabla presentación de una pregunta seleccionada -->
+    <section class="sect-cabecera">
+      <div class="container">
+        <div class="d-flex">
+          <div class="p-sm-2 flex-fill votos">Cargo</div>
+          <div class="p-sm-2 flex-fill votos">Principal</div>
+        </div>
+        <!-- Visualización resultados cociente -->
+        <div class="d-flex">
+          <% results1.forEach(function(row) { %>
+          <div class="p-sm-1 flex-fill votos">Votos válidos</div>
+          <div class="p-sm-2 flex-fill votos"><%= row.votos_validos %></div>
+          <% }); %>
+          <% results2.forEach(function(row) { %>
+          <div class="p-sm-1 flex-fill cociente">Cuociente</div>
+          <div class="p-sm-2 flex-fill cociente"><%= row.cuociente %></div>
+          <% }); %>
+        </div>
+      </div>
+    </section>
     <section>
-      <div class="container" >
-<!-- Visualizacion de la pregunta -->
-        <table class="table table-bordered table-striped table-center">
-          <thead>
-            <tr>
-              <th class="col-md-2 main-table_th" scope="col">Pregunta #</th>
-              <th class="col-md-10 main-table_th" scope="col">Enunciado Pregunta</th>
-            </tr>
-          </thead>
-            <tbody>
-              <% if (results.length > 0) { %>
-              <tr>              
-              <td class="main-table_td"><%=results[0].orden_pregunta %></td>
-              <td class="main-table_td"><%=results[0].pregunta_enunciado %></td>
-              </tr>
-              <% } %>
-            </tbody>
-        </table>
-<!-- Zona para visualizar los resultados de la pregunta seleccionada -->
+      <div class="container">
+        <!-- Zona para visualizar los resultados de la pregunta seleccionada -->
         <table class="table table-bordered table-striped table-center mt-4">
-          <thead> 
-            <tr class="main-table_tr">            
-              <th scope="col">Opción de Voto</th>
-              <th scope="col"># de Votos</th>
-              <th scope="col">Aprobada/Rechazada</th>
+          <thead>
+            <tr class="main-table_tr">
+              <th scope="col">Opción</th>
+              <th scope="col">Cifra repartidora</th>
+              <th scope="col">Curules Cuociente</th>
+              <th scope="col">Curules Residuo</th>
+              <th scope="col">Total Curules</th>
             </tr>
           </thead>
-            <tbody>
-              <%results.forEach ((user)=> { %>              
-                <tr class="main-table_tr">              
-                  <td><%=user.opcion_enunciado %></td>
-                  <td><%=user.votos_opcion %></td>
-                  <td><%=user.votos_opcion %></td>       
-                </tr>
-              <%}) %>
-            </tbody>
+          <tbody>
+            <% results3.forEach(function(row) { %>
+            <tr class="main-table_tr">
+              <td><%= row.pregunta_opcion_enunciado %></td>
+              <td><%= row.cifra_repartidora %></td>
+              <td><%= row.curules_cuociente %></td>
+              <td><%= row.curules_residuo %></td>
+              <td><%= row.total_curules %></td>
+            </tr>
+            <% }); %>
+          </tbody>
         </table>
       </div>
     </section>
