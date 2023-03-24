@@ -45,7 +45,7 @@ exports.read = (req,res)=>{
     /* se asigna la cédula recibida a una constante */
     const cedula = (req.body.cedula);
     /* Query de búsqueda a la base de datos por el número de cedula*/
-    const search = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE  d.delegado_documento_identificacion = '${cedula}'`;
+    const search = `SELECT a.asamblea_id, d.delegado_id, d.delegado_codigo_alterno ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE  d.delegado_documento_identificacion = '${cedula}'`;
     
     /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
     conexion.query(search, (error, results) =>{
