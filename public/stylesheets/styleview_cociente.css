@@ -30,13 +30,13 @@
 }
 
 .votos{
-  background-color: aqua;
   font-size: 2rem;
+  color: brown;
 }
 
 .cociente{
-  background-color: blue;
   font-size: 2rem;
+  color: brown;
 }
 
 .highlight {
