@@ -57,8 +57,8 @@
             <thead>
               <tr>
                 <th class="col-md-1 main-table_th" scope="col"># Delegados</th>
-                <th class="col-md-1 main-table_th" scope="col">N° Documento</th>
                 <th class="col-md-1 main-table_th" scope="col">Cod. Alterno</th>
+                <th class="col-md-1 main-table_th" scope="col">N° Documento</th>
                 <th class="col-md-6 main-table_th"scope="col">Nombre del delegado</th>
                 <th class="col-md-1 main-table_th"scope="col">Tipo</th>
                 <th class="col-md-2 main-table_th"scope="col">Estado en Sala</th>
@@ -68,8 +68,8 @@
               <% results.forEach ((user , index)=> { %>
               <tr class="<%= user.estado === 'FUERA DE SALA' ? 'highlight' : '' %>">
                 <td><%= index + 1 %></td>
-                <td><%= user.delegado_documento_identificacion %></td>
                 <td><%= user.codigo_asamblea %></td>
+                <td><%= user.delegado_documento_identificacion %></td>
                 <td><%= user.delegado_nombres %></td>
                 <td><%= user.delegado_tipo%></td>
                 <td><%= user.estado %></td>
