@@ -65,8 +65,8 @@
         <table class="table table-bordered table-striped table-center">
           <thead>
             <tr>
-              <th class="col-md-2 main-table_th" scope="col">ID</th>
-              <th class="col-md-10 main-table_th" scope="col">Pregunta</th>
+              <th class="col-md-2 main-table_th" scope="col">Pregunta #</th>
+              <th class="col-md-10 main-table_th" scope="col">Enunciado Pregunta</th>
             </tr>
           </thead>
             <tbody>
@@ -88,11 +88,11 @@
             </tr>
           </thead>
             <tbody>
-              <%results.forEach ((user)=> { %>                
+              <%results.forEach ((user)=> { %>              
                 <tr class="main-table_tr">              
                   <td><%=user.opcion_enunciado %></td>
-                  <td><%=user.votos_opcion%></td>
-                  <td><%=user.pregunta_opcion_enunciado %></td>       
+                  <td><%=user.votos_opcion %></td>
+                  <td><%=user.votos_opcion %></td>       
                 </tr>
               <%}) %>
             </tbody>
