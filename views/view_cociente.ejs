@@ -58,26 +58,49 @@
     </div>
   </header>
   <main>
+    <section>
+      <div class="container">
+    <!-- Visualizacion de la pregunta -->
+    <table class="table table-bordered table-striped table-center">
+      <thead>
+        <tr>
+          <th class="col-md-2 main-table_th" scope="col">Pregunta #</th>
+          <th class="col-md-10 main-table_th" scope="col">Enunciado Pregunta</th>
+        </tr>
+      </thead>
+        <tbody>
+          <% if (results.length > 0) { %>
+          <tr>              
+          <td class="main-table_td"><%=results[0].orden_pregunta %></td>
+          <td class="main-table_td"><%=results[0].pregunta_enunciado %></td>
+          </tr>
+          <% } %>
+        </tbody>
+    </table>
+      </div>
+    </section>
+
     <!-- Tabla presentación de una pregunta seleccionada -->
     <section class="sect-cabecera">
       <div class="container">
         <div class="d-flex">
-          <div class="p-sm-2 flex-fill votos">Cargo</div>
-          <div class="p-sm-2 flex-fill votos">Principal</div>
+          <div class="p-sm-2 flex-fill tlabel">Cargo: </div>
+          <div class="p-sm-2 flex-fill plabel">Principal</div>
         </div>
         <!-- Visualización resultados cociente -->
         <div class="d-flex">
           <% results1.forEach(function(row) { %>
-          <div class="p-sm-1 flex-fill votos">Votos válidos</div>
-          <div class="p-sm-2 flex-fill votos"><%= row.votos_validos %></div>
+          <div class="p-sm-1 flex-fill tvotos">Votos válidos</div>
+          <div class="p-sm-2 flex-fill pvotos"><%= row.votos_validos %></div>
           <% }); %>
           <% results2.forEach(function(row) { %>
-          <div class="p-sm-1 flex-fill cociente">Cuociente</div>
-          <div class="p-sm-2 flex-fill cociente"><%= row.cuociente %></div>
+          <div class="p-sm-1 flex-fill tcociente">Cuociente</div>
+          <div class="p-sm-2 flex-fill pcociente"><%= row.cuociente %></div>
           <% }); %>
         </div>
       </div>
     </section>
+
     <section>
       <div class="container">
         <!-- Zona para visualizar los resultados de la pregunta seleccionada -->

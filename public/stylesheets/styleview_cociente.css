@@ -29,14 +29,34 @@
   padding: 1.5rem;
 }
 
-.votos{
-  font-size: 2rem;
-  color: brown;
+.tlabel{
+  text-align: right;
+  font-size: 3rem;
 }
 
-.cociente{
+.plabel{
+  text-align: left;
+  font-size: 3rem;
+}
+
+.tvotos{
+  text-align: center;
+  font-size: 2.5em;
+}
+
+.tcociente{
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.pvotos{
+  text-align: left;
   font-size: 2rem;
-  color: brown;
+}
+
+.pcociente{
+  text-align: left;
+  font-size: 2rem;
 }
 
 .highlight {

@@ -94,22 +94,29 @@ exports.pregunta = (req, res) => {
       }
     });
   } else {
-    conexion.query(votos, (error1, results1) => {
-      if (error1) {
-        throw error1;
+    conexion.query(TexPregunta, (error, results) => {
+      if (error) {
+        throw error;
       } else {
-        conexion.query(cociente, (error2, results2) => {
-          if (error2) {
-            throw error2;
+        conexion.query(votos, (error1, results1) => {
+          if (error1) {
+            throw error1;
           } else {
-            conexion.query(curules, (error3, results3) => {
-              if (error3) {
-                throw error3;
+            conexion.query(cociente, (error2, results2) => {
+              if (error2) {
+                throw error2;
               } else {
-                res.render('view_cociente', {
-                  results1: results1.rows,
-                  results2: results2.rows,
-                  results3: results3.rows,
+                conexion.query(curules, (error3, results3) => {
+                  if (error3) {
+                    throw error3;
+                  } else {
+                    res.render('view_cociente', {
+                      results:results.rows,
+                      results1: results1.rows,
+                      results2: results2.rows,
+                      results3: results3.rows,
+                    });
+                  }
                 });
               }
             });
