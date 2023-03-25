@@ -67,17 +67,27 @@ exports.pregunta = (req, res) => {
                         WHERE pa.pregunta_id = '${idPregunta}' 
                         ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
 
-  const votos = `SELECT DISTINCT votos_validos 
+  const votosp = `SELECT DISTINCT votos_validos 
                   FROM emodel.calcula_resultado_pregunta_cuociente rpc 
                   INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
                   WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL';`;
 
-  const cociente = `SELECT DISTINCT cuociente 
+  const votoss = `SELECT DISTINCT votos_validos 
+                  FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                  INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                  WHERE pa.bandera_votacion = 'A' AND cargo = 'SUPLENTES';`;
+
+  const coucientep = `SELECT DISTINCT cuociente 
                     FROM emodel.calcula_resultado_pregunta_cuociente rpc 
                     INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
                     WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL';`;
+  
+  const coucientes = `SELECT DISTINCT cuociente 
+                    FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                    INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                    WHERE pa.bandera_votacion = 'A' AND cargo = 'SUPLENTES';`;
 
-  const curules = `SELECT po.pregunta_opcion_enunciado, rpc.curules_cuociente + rpc.cuociente_residuo AS cifra_repartidora, 
+  const curulesp = `SELECT po.pregunta_opcion_enunciado, rpc.curules_cuociente + rpc.cuociente_residuo AS cifra_repartidora, 
                     rpc.curules_cuociente, rpc.curules_residuo, rpc.curules_cuociente + rpc.curules_residuo total_curules 
                     FROM emodel.calcula_resultado_pregunta_cuociente rpc 
                     INNER JOIN emodel.pregunta_opciones po ON po.pregunta_opcion_id = rpc.opcion_id 
@@ -85,6 +95,15 @@ exports.pregunta = (req, res) => {
                     WHERE pa.bandera_votacion = 'A' AND cargo = 'PRINCIPAL' 
                     ORDER BY po.pregunta_opcion_orden;`; 
 
+  const curuless = `SELECT po.pregunta_opcion_enunciado, rpc.curules_cuociente + rpc.cuociente_residuo AS cifra_repartidora, 
+                    rpc.curules_cuociente, rpc.curules_residuo, rpc.curules_cuociente + rpc.curules_residuo total_curules 
+                    FROM emodel.calcula_resultado_pregunta_cuociente rpc 
+                    INNER JOIN emodel.pregunta_opciones po ON po.pregunta_opcion_id = rpc.opcion_id 
+                    INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
+                    WHERE pa.bandera_votacion = 'A' AND cargo = 'SUPLENTES' 
+                    ORDER BY po.pregunta_opcion_orden;`; 
+
+                    
   if (idPregunta != "39") { 
     conexion.query(TexPregunta, (error, results) => {
       if (error) {
@@ -98,23 +117,44 @@ exports.pregunta = (req, res) => {
       if (error) {
         throw error;
       } else {
-        conexion.query(votos, (error1, results1) => {
+        conexion.query(votosp, (error1, results1) => {
           if (error1) {
             throw error1;
           } else {
-            conexion.query(cociente, (error2, results2) => {
-              if (error2) {
-                throw error2;
+            conexion.query(votoss, (error4, results4) => {
+              if (error4) {
+                throw error4;
               } else {
-                conexion.query(curules, (error3, results3) => {
-                  if (error3) {
-                    throw error3;
+                conexion.query(coucientep, (error2, results2) => {
+                  if (error2) {
+                    throw error2;
                   } else {
-                    res.render('view_cociente', {
-                      results:results.rows,
-                      results1: results1.rows,
-                      results2: results2.rows,
-                      results3: results3.rows,
+                    conexion.query(coucientes, (error5, results5) => {
+                      if (error5) {
+                        throw error5;
+                      } else {
+                        conexion.query(curulesp, (error3, results3) => {
+                          if (error3) {
+                            throw error3;
+                          } else {
+                            conexion.query(curuless, (error6, results6) => {
+                              if (error6) {
+                                throw error6;
+                              } else {
+                                res.render('view_cociente', {
+                                  results:results.rows,
+                                  results1: results1.rows,
+                                  results2: results2.rows,
+                                  results3: results3.rows,
+                                  results4: results4.rows,
+                                  results5: results5.rows,
+                                  results6: results6.rows,
+                                });
+                              }
+                            });
+                          }
+                        });
+                      }
                     });
                   }
                 });

@@ -87,7 +87,7 @@
           <div class="p-sm-2 flex-fill tlabel">Cargo: </div>
           <div class="p-sm-2 flex-fill plabel">Principal</div>
         </div>
-        <!-- Visualización resultados cociente -->
+        <!-- Visualización resultados couciente -->
         <div class="d-flex">
           <% results1.forEach(function(row) { %>
           <div class="p-sm-1 flex-fill tvotos">Votos válidos</div>
@@ -116,6 +116,54 @@
           </thead>
           <tbody>
             <% results3.forEach(function(row) { %>
+            <tr class="main-table_tr">
+              <td><%= row.pregunta_opcion_enunciado %></td>
+              <td><%= row.cifra_repartidora %></td>
+              <td><%= row.curules_cuociente %></td>
+              <td><%= row.curules_residuo %></td>
+              <td><%= row.total_curules %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sect-cabecera">
+      <div class="container">
+        <div class="d-flex">
+          <div class="p-sm-2 flex-fill tlabel">Cargo: </div>
+          <div class="p-sm-2 flex-fill plabel">Suplente</div>
+        </div>
+        <!-- Visualización resultados cociente -->
+        <div class="d-flex">
+          <% results4.forEach(function(row) { %>
+          <div class="p-sm-1 flex-fill tvotos">Votos válidos</div>
+          <div class="p-sm-2 flex-fill pvotos"><%= row.votos_validos %></div>
+          <% }); %>
+          <% results5.forEach(function(row) { %>
+          <div class="p-sm-1 flex-fill tcociente">Cuociente</div>
+          <div class="p-sm-2 flex-fill pcociente"><%= row.cuociente %></div>
+          <% }); %>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <!-- Zona para visualizar los resultados de la pregunta seleccionada -->
+        <table class="table table-bordered table-striped table-center mt-4">
+          <thead>
+            <tr class="main-table_tr">
+              <th scope="col">Opción</th>
+              <th scope="col">Cifra repartidora</th>
+              <th scope="col">Curules Cuociente</th>
+              <th scope="col">Curules Residuo</th>
+              <th scope="col">Total Curules</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% results6.forEach(function(row) { %>
             <tr class="main-table_tr">
               <td><%= row.pregunta_opcion_enunciado %></td>
               <td><%= row.cifra_repartidora %></td>
