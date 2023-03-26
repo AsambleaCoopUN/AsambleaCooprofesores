@@ -79,24 +79,39 @@
             </tbody>
         </table>
 <!-- Zona para visualizar los resultados de la pregunta seleccionada -->
-        <table class="table table-bordered table-striped table-center mt-4">
+        <table class="table table-bordered table-striped table-center mt-4 ">
           <thead> 
             <tr class="main-table_tr">            
               <th scope="col">Opción de Voto</th>
               <th scope="col"># de Votos</th>
-              <th scope="col">Aprobada/Rechazada</th>
+              <!-- <th scope="col">Umbral minimo de triunfo</th> -->
             </tr>
           </thead>
-            <tbody>
+            <tbody >
               <%results.forEach ((user)=> { %>              
-                <tr class="main-table_tr">              
+                <tr class="main-table_tr ">              
                   <td><%=user.opcion_enunciado %></td>
-                  <td><%=user.votos_opcion %></td>
-                  <td><%=user.votos_opcion %></td>       
+                  <td style="<%= user.votos_opcion >= user.umbral_minimo ? 'background-color: green;' : '' %>"><%= user.votos_opcion %></td>
+                  <!-- <td><%=user.umbral_minimo %></td>        -->
                 </tr>
               <%}) %>
             </tbody>
         </table>
+        <table class="table table-bordered table-striped table-center mt-4">
+          <thead>
+            <tr class="main-table_tr">
+              <th scope="col">Umbral de votos minimos para triunfo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (results.length > 0) { %>
+              <tr class="<%= results[0].votos_opcion >= results[0].umbral_minimo ? 'highlight2' : '' %> <%= results[0].votos_opcion <= results[0].umbral_minimo ? 'highlight' : '' %>">
+                <td><%=results[0].umbral_minimo %></td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+
       </div>
     </section>
   </main>
