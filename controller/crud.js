@@ -216,7 +216,7 @@ exports.salaInOut = (req,res) => {
             if (error) {
               console.log(error);
             }else{
-              const message = 'el usuario se retira de la sala';
+              const message = 'el usuario reingresa a de la sala';
               res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
             }
         });
