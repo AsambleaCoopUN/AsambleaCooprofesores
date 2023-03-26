@@ -176,28 +176,57 @@ exports.salaInOut = (req,res) => {
   const message = 'el usuario de código '+ alterno + "estado "+ evento ;
   res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`); */
 
+  const estadoSala = `select
+  case aa.asistente_activo 
+  when true then 'EN SALA' 
+  when false then 'FUERA DE SALA' 
+  end estado 
+  from emodel.asistencia_asamblea aa 
+  inner join emodel.delegado d 
+  on d.delegado_id = aa.delegado_id 
+  where asamblea_id = 1 and upper(d.delegado_codigo_alterno) = upper('${alterno}')`;
+  
   if (evento === "SALIDA"){
-    conexion.query(inOut, (error, results) => {
-      if (error) {
-        console.log(error);
-        const message = 'el usuario se encuentra fuera de la sala';
+    conexion.query(estadoSala, (error,results)=>{
+    if(error){
+      console.log(error);
+    }else{
+      const estado = results.rows[0].estado;
+      if (estado==="FUERA DE SALA"){
+        const message = 'ERROR: EL USUARIO YA SE ENCUENTRA FUERA DE LA SALA';
         res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
-      } else {
-        console.log(error);
-        const message = 'el usuario se retira de la sala';
-        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
-      }
-    });
+      }else{
+        conexion.query(inOut, (error, results) => {
+          if (error) {
+            console.log(error);
+          }else{
+            const message = 'el usuario se retira de la sala';
+            res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+          }
+      });
+    }
+  }
+});
   }else{
-    conexion.query(inOut, (error, results) => {
-      if (error) {
+    conexion.query(estadoSala, (error,results)=>{
+      if(error){
         console.log(error);
-        const message = 'el usuario se encuentra en la sala';
-        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
-      } else {
-        const message = 'el usuario reingresa a la sala';
-        res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+      }else{
+        const estado = results.rows[0].estado;
+        if (estado==="EN SALA"){
+          const message = 'ERROR: EL USUARIO YA SE ENCUENTRA EN LA SALA';
+          res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+        }else{
+          conexion.query(inOut, (error, results) => {
+            if (error) {
+              console.log(error);
+            }else{
+              const message = 'el usuario se retira de la sala';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+            }
+        });
       }
-    });
+    }
+  });
   }
 }
