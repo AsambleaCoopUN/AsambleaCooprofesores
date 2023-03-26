@@ -60,12 +60,7 @@ exports.read = (req,res)=>{
 exports.pregunta = (req, res) => {
   const idPregunta = req.body.pregunta_id;
 
-  const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion 
-                        FROM emodel.pregunta_asamblea pa 
-                        INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id 
-                        LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id 
-                        WHERE pa.pregunta_id = '${idPregunta}' 
-                        ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+  const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${idPregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
 
   const votosp = `SELECT DISTINCT votos_validos 
                   FROM emodel.calcula_resultado_pregunta_cuociente rpc 
