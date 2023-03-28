@@ -59,7 +59,15 @@ router.get('/view_questions', (req, res) => {
 
 //enrutamiento para visualizar los delegados presentes en la asamblea para validar el Quorum
 router.get('/estadoEnSala', (req, res) => {
-    const courum = `select d.delegado_codigo_alterno codigo_asamblea ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo ,case aa.asistente_activo when true then 'EN SALA' when false then 'FUERA DE SALA' end estado from emodel.asistencia_asamblea aa inner join emodel.delegado d on d.delegado_id = aa.delegado_id where asamblea_id = 1 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'order by aa.asistente_activo desc, d.delegado_tipo asc`;
+    const courum = `select d.delegado_codigo_alterno codigo_asamblea ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo ,
+    case aa.asistente_activo 
+    when true then 'EN SALA' 
+    when false then 'FUERA DE SALA' 
+    end estado from emodel.asistencia_asamblea aa 
+    inner join emodel.delegado d 
+    on d.delegado_id = aa.delegado_id 
+    where asamblea_id = 1 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'
+    order by aa.asistente_activo desc, d.delegado_tipo asc`;
 
     conexion.query(courum , (error,results)=>{
         if (error){

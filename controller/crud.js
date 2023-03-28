@@ -185,6 +185,8 @@ exports.salaInOut = (req,res) => {
     conexion.query(estadoSala, (error,results)=>{
     if(error){
       console.log(error);
+      const message = 'ERROR: EL USUARIO NO EXISTE';
+      res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
     }else{
       const estado = results.rows[0].estado;
       if (estado==="FUERA DE SALA"){
@@ -206,6 +208,8 @@ exports.salaInOut = (req,res) => {
     conexion.query(estadoSala, (error,results)=>{
       if(error){
         console.log(error);
+        const message = 'ERROR: EL USUARIO NO EXISTE';
+      res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
       }else{
         const estado = results.rows[0].estado;
         if (estado==="EN SALA"){
