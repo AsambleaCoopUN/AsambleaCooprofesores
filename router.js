@@ -4,13 +4,7 @@ const conexion = require('./database/conexion');
 
 router.get('/',(req,res)=> {
     res.render('index');
-       /*  conexion.query('SELECT * FROM emodel.delegado', (error,results)=>{
-        if (error){
-            throw error;
-        }else{
-            res.send(results);
-        }
-    }); */
+
 })
 
 /* redirecciona a la pagina donde aparece el listado completo de delegados y lo ordena por fecha y hora de registro de ingreso a la Asamblea*/

@@ -9,6 +9,10 @@
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Refrescar pagina-->
+  <!-- <meta http-equiv="refresh" content="0"> -->
+
   <!--Bootstrap-->
   <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
   <!--CSS-->
@@ -103,6 +107,16 @@
   <script src="/javascripts/jquery-3.6.3.min.js"></script>
   <script src="/dist/js/bootstrap.min.js"></script>
   <script src="/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+    socket.on('connect', () => {
+    //window.location.reload();
+    console.log('Conectado al servidor');
+    });
+  </script>
+
 </body>
 
 </html>

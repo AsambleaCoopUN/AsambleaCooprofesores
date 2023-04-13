@@ -2,13 +2,21 @@
 const express = require("express");
 const app = express();
 
+const socketIO = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+
 /* definición de ruta y puerto del servidor de pruebas */
-app.listen(8688, ()=>{
+server.listen(8688, ()=>{
     console.log('Server corriendo en http://localhost:8688')
 });
 
 /* Establecer la carpeta pública */
 app.use(express.static('public'));
+
+
+// IO = se conencta con backend
+let io = socketIO(server);
 
 /* establecer las carpetas estáticas */
 app.use(express.static(__dirname + '/node_modules/bootstrap/'));
@@ -25,3 +33,12 @@ app.set('view engine','ejs');
 
 /* llamado del enrrutador */
 app.use('/', require('./router'));
+
+/* Configuración de Socket.IO*/
+io.on('connection', socket => {
+  console.log('Nuevo cliente conectado');
+
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
+  });
+});
