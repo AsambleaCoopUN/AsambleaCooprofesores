@@ -1,11 +1,21 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
+const getMac = require('getmac');
 const conexion = require('./database/conexion');
 
-/* enrutamiento al la página principal  */
-router.get('/',(req,res)=> {
-    res.render('index');
-})
+
+/* enrutamiento a la página principal */
+router.get('/', (req, res) => {
+  /* obtener la dirección MAC del servidor */
+  getMac.getMac((err, macAddress) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error obteniendo la dirección MAC');
+    } else {
+      res.render('index', { macAddress });
+    }
+  });
+});
 
 router.get('/edit',(req,res)=> {
     res.render('edit');
@@ -76,7 +86,7 @@ router.get('/estadoEnSala', (req, res) => {
             res.render('estadoEnSala', { results: results.rows });
         }
     });
- 
 })
+
 
 module.exports = router;
