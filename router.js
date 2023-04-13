@@ -5,16 +5,17 @@ const conexion = require('./database/conexion');
 
 
 /* enrutamiento a la página principal */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   /* obtener la dirección MAC del servidor */
-  getMac.getMac((err, macAddress) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error obteniendo la dirección MAC');
-    } else {
-      res.render('index', { macAddress });
-    }
-  });
+  let macAddress;
+  try {
+    macAddress = await getMac.default(); // use await to get MAC address
+    console.log(macAddress);
+  } catch (err) {
+    console.log(err);
+    console.log('Error obteniendo la dirección MAC');
+  }
+  res.render('index');
 });
 
 router.get('/edit',(req,res)=> {
