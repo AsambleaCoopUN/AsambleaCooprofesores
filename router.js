@@ -1,28 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const getMac = require('getmac');
 const conexion = require('./database/conexion');
+const useragent = require('express-useragent');
 
+/* agregar middleware para capturar la información del dispositivo */
+router.use(useragent.express());
 
 /* enrutamiento a la página principal */
-router.get('/', async (req, res) => {
-  /* obtener la dirección MAC del servidor */
-  let macAddress;
-  try {
-    macAddress = await getMac.default(); // use await to get MAC address
-    console.log(macAddress);
-  } catch (err) {
-    console.log(err);
-    console.log('Error obteniendo la dirección MAC');
-  }
+router.get('/',(req,res)=> {
+  const device = req.useragent;
+  console.log(device);
   res.render('index');
 });
 
+/* enrutamiento hacia la página de edición de preguntas */
 router.get('/edit',(req,res)=> {
     res.render('edit');
 })
 
-/* redirecciona a la pagina donde aparece el listado completo de delegados y lo ordena por fecha y hora de registro de ingreso a la Asamblea*/
+/* enrutamiento a la pagina donde aparece el listado completo de delegados y lo ordena por fecha y hora de registro de ingreso a la Asamblea*/
 router.get('/general', (req, res) => {
     const lgeneral = `select d.delegado_id, d.delegado_codigo_alterno, d.delegado_documento_identificacion , d.delegado_nombres, d.delegado_tipo ,aa.fecha_hora_registro_entrada from emodel.delegado d left outer join emodel.asistencia_asamblea aa on d.delegado_id  = aa.delegado_id where d.delegado_tipo  <> 'AGREGADOR_PRINCIPAL' order by aa.fecha_hora_registro_entrada  asc`;
     conexion.query(lgeneral , (error,results)=>{
@@ -34,6 +30,7 @@ router.get('/general', (req, res) => {
     });
 })
 
+/* enrutamiento a la vista de la pregunta del couciente */
 router.get('/view_cociente', (req,res)=>{
     res.render('view_cociente');
 })
