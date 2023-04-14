@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const conexion = require('./database/conexion');
 const useragent = require('express-useragent');
+const device = require('device');
 
 /* agregar middleware para capturar la información del dispositivo */
 router.use(useragent.express());
@@ -9,7 +10,13 @@ router.use(useragent.express());
 /* enrutamiento a la página principal */
 router.get('/',(req,res)=> {
   const device = req.useragent;
-  console.log(device);
+  for (var prop in device) {
+    if (device.hasOwnProperty(prop) && device[prop]) {
+      console.log(prop + ': ' + device[prop]);
+    }
+  }
+  const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
+  console.log(`Your IP address is ${ipAddress}`);
   res.render('index');
 });
 
