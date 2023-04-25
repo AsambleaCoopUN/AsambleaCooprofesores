@@ -4,7 +4,8 @@
   "description": "Registro de votaciones para la Asamblea de profesores",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "keywords": [
     "votación",
@@ -27,6 +28,7 @@
     "jquery": "^3.6.3",
     "nodemon": "^2.0.21",
     "pg": "^8.9.0",
-    "postgresql": "^0.0.1"
+    "postgresql": "^0.0.1",
+    "socket.io": "^4.6.1"
   }
 }

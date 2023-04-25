@@ -2,16 +2,15 @@ const express = require('express');
 const router = express.Router();
 const conexion = require('./database/conexion');
 
-const cookieParser = require('cookie-parser');
-router.use(cookieParser());
-
 /* agregar middleware para capturar la información del dispositivo */
 const useragent = require('express-useragent');
 const device = require('device');
 router.use(useragent.express());
 
+const isLoggedIn = require("./public/middlewares/isLoggedIn");
+
 /* enrutamiento a la página principal */
-router.get('/',(req,res)=> {
+router.get('/', isLoggedIn,(req,res)=> {
   res.render('index');
 });
 
