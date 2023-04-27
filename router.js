@@ -14,6 +14,10 @@ router.get('/', isLoggedIn,(req,res)=> {
   res.render('index');
 });
 
+router.get('/login',(req,res)=> {
+    res.render('login');
+  });
+
 router.get('/test', (req, res) => {
     res.render('test');
 });

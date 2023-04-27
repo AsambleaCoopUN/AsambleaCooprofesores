@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
   <!--CSS-->
   <link href="/stylesheets/styles.css" rel="stylesheet">
+  <link href="/stylesheets/styleindex.css" rel="stylesheet">
   <!--Titulo-->
   <title>Sistema de votación</title>
   <!--Favicon-->
@@ -63,30 +64,28 @@
   </header>
 
   <main class="main">
-    <section>
-      <form class="main-section_form" action="/respuesta" method="post">
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Opción</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% results.forEach ((user)=> { %>
-                <tr>
-                  <td><%=user.opcion_enunciado %></td>
-                  <td><%= user.votos_opcion %></td>
-                  <td></td>
-                </tr>
-              <%}) %>
-            </tbody>
-          </table>
+    <!-- Sección hero -->
+    <section class="main-section_cabecera">   
+      <div id="cabecera" class="d-flex flex-column justify-content-center align-items-center" >
+        <div class="row col-lg-12 text-center">
+          <h1>Registro Asamblea <br> Cooperativa de Profesores de la Universidad Nacional </h1>
+        </div>
+      </div>
+    </section>    
+      
+    <!-- Formulario -->
+    <section class="main-section">
+      <form class="main-section_form" action="/read" method="post">
+        <div class="main-section_form_inpbox mb-4 col-mb-12" >
+          <label for="cedula" class="form-label">
+            <input type="text" class="form-control" id="cedula" name="cedula" aria-describedby="cedula" placeholder="Cédula" maxlength="10" required>
+          </label>
+        </div>
+        <div class="mb-4 col-mb-12 main-section_form_button">
+          <button type="submit" class="btn btn-primary btnconsultar" tabindex="5">Consultar</button>
         </div>
       </form>
     </section>
-  
   </main>
 
   <!--Pie de página-->
@@ -95,7 +94,7 @@
       <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
     </div>
   </footer>
-    
+
   <!-- JavaScript -->
   <script src="/public/javascripts/asamblea.js"></script>
   <script src="/public/javascripts/jquery-3.6.3.min.js"></script>

@@ -13,8 +13,12 @@ app.use(cookieParser());
 app.set("port", process.env.PORT || 8688);
 
 httpServer.listen( app.get("port"),()=>{
-    console.log('Server corriendo en el puerto', app.get("port"));
+    console.log(`Server corriendo en el puerto http://localhost:${app.get("port")}`);
 });
+/* 
+app.listen(8688, ()=>{
+    console.log('Server corriendo en http://localhost:8688')
+}); */
 
 /* llamado al servidor de Socket.oi */
 realtimeServer(httpServer);
