@@ -15,16 +15,12 @@ app.set("port", process.env.PORT || 8688);
 httpServer.listen( app.get("port"),()=>{
     console.log(`Server corriendo en el puerto http://localhost:${app.get("port")}`);
 });
-/* 
-app.listen(8688, ()=>{
-    console.log('Server corriendo en http://localhost:8688')
-}); */
 
 /* llamado al servidor de Socket.oi */
 realtimeServer(httpServer);
 
 /* Establecer la carpeta pública */
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 /* establecer las carpetas estáticas */
 app.use(express.static(__dirname + '/node_modules/bootstrap/'));
