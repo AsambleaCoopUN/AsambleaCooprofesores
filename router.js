@@ -59,7 +59,6 @@ router.post('/save', crud.save);
 router.post('/read', crud.read);
 router.post('/pregunta', crud.pregunta);
 router.post('/salaInOut', crud.salaInOut);
-router.get('/cookie', crud.cookie);
 router.get('/obtenerCookie', crud.obtenerCookie);
 
 /* enrutamiento para visualizar todas las preguntas  */

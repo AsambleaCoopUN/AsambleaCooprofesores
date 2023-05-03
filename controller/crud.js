@@ -4,6 +4,7 @@ exports.save = (req, res) => {
     //* Captura las celdas requeridas por el id */
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
+    const alterno = req.body.delcodalterno;
 
     /* query que busca la fecha de registro validado contra el id del usuario */
     const fechareg = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada 
@@ -27,8 +28,11 @@ exports.save = (req, res) => {
               const message = 'El usuario ya ha registrado su asistencia';
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             } else {
+              const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
+              const cookieValue = JSON.stringify({asambleaId,delegadoId,alterno,ipAddress}); // Crear un objeto con la información del dispositivo y la dirección IP
               console.log('registro satisfactorio')
               const message = 'La asistencia ha sido registrada satisfactoriamente';
+              res.cookie('calterno', cookieValue, { maxAge: 24 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 24 horas
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             }
           });
@@ -226,20 +230,22 @@ exports.salaInOut = (req,res) => {
   }
 }
 
-exports.cookie = (req, res) =>{
+/* exports.cookie = (req, res) =>{
   const alterno = "req.body.alterno";
   const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
   const cookieValue = JSON.stringify({ alterno, ipAddress }); // Crear un objeto con la información del dispositivo y la dirección IP
   res.cookie('miCookie', cookieValue, { maxAge: 24 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 24 horas
   const message = "Conexión establecida";
   console.log(`La dirección del cliente es: ${ipAddress}`);
-  res.send(`<script>if(confirm('${message}')){window.location.href='/test'}</script>`);
-}
+  res.send(`<script>window.location.href='/save'</script>`);
+} */
 
 exports.obtenerCookie = (req, res) => {
-  const cookieValue = req.cookies.miCookie; // Obtener el valor de la cookie
+  const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+  const asambleaId = cookieData.asambleaId;
+  const delegadoId = cookieData.delegadoId;
   const alterno = cookieData.alterno;
   const ipAddress = cookieData.ipAddress;
-  res.send(`Información de la cookie: <br>Dispositivo: ${alterno}<br>Dirección IP: ${ipAddress}`);
+  res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>CC delegado: ${delegadoId}<br>Cod. alterno: ${alterno}<br>Dirección IP: ${ipAddress}`);
 }
