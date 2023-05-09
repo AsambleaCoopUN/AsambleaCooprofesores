@@ -36,9 +36,9 @@ app.use('/', require('./router'));
 
 /* Configuración de Socket.IO*/
 io.on('connection', socket => {
-  console.log('Nuevo cliente conectado');
+  //console.log('Nuevo cliente conectado');
 
   socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
+    //console.log('Cliente desconectado');
   });
-});
+});  
