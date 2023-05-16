@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const conexion = require('./database/conexion');
-const useragent = require('express-useragent');
-const device = require('device');
 
 /* agregar middleware para capturar la información del dispositivo */
+const useragent = require('express-useragent');
+const device = require('device');
 router.use(useragent.express());
 
+const isLoggedIn = require("./public/middlewares/isLoggedIn");
+
 /* enrutamiento a la página principal */
-router.get('/',(req,res)=> {
-  const device = req.useragent;
-  for (var prop in device) {
-    if (device.hasOwnProperty(prop) && device[prop]) {
-      console.log(prop + ': ' + device[prop]);
-    }
-  }
-  const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
-  console.log(`Your IP address is ${ipAddress}`);
+router.get('/', isLoggedIn,(req,res)=> {
   res.render('index');
+});
+
+router.get('/login',(req,res)=> {
+    res.render('login');
+  });
+
+router.get('/test', (req, res) => {
+    res.render('test');
 });
 
 /* enrutamiento hacia la página de edición de preguntas */
@@ -57,6 +59,7 @@ router.post('/save', crud.save);
 router.post('/read', crud.read);
 router.post('/pregunta', crud.pregunta);
 router.post('/salaInOut', crud.salaInOut);
+router.get('/obtenerCookie', crud.obtenerCookie);
 
 /* enrutamiento para visualizar todas las preguntas  */
 router.get('/view_questions', (req, res) => {
