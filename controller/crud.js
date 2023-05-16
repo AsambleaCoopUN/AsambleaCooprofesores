@@ -1,4 +1,6 @@
+const { Connection } = require('pg');
 const conexion = require('../database/conexion');
+const { error } = require('jquery');
 
 exports.save = (req, res) => {
     //* Captura las celdas requeridas por el id */
@@ -63,10 +65,14 @@ exports.read = (req,res)=>{
 }
 
 exports.pregunta = (req, res) => {
+
+  /* se asigna id de la pregunta a la constante */
   const idPregunta = req.body.pregunta_id;
 
+  /*Se asigna a la variable la query donde se extrae el texto de la pregunta asi como sus opciones de respuesta con los votos totales que tiene  */
   const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${idPregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
 
+  /*se valida cada opcion de pregunta */
   const votosp = `SELECT DISTINCT votos_validos 
                   FROM emodel.calcula_resultado_pregunta_cuociente rpc 
                   INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = rpc.pregunta_id 
@@ -166,12 +172,13 @@ exports.pregunta = (req, res) => {
     });
   }
 }
-
+/* Metodo que valida y/o cambia el estado en sala de un delegado segun el codigo alterno asignado*/
 exports.salaInOut = (req,res) => {
   const evento = (req.body.evento);
   const alterno = (req.body.alterno);
   const inOut = `call emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
-
+ 
+  /*query que valida el estado en la sala de un delegado segun su codigo alterno */
   const estadoSala = `select
   case aa.asistente_activo 
   when true then 'EN SALA' 
@@ -184,28 +191,29 @@ exports.salaInOut = (req,res) => {
   
   if (evento === "SALIDA"){
     conexion.query(estadoSala, (error,results)=>{
-    if(error){
-      console.log(error);
-      const message = 'ERROR: EL USUARIO NO EXISTE';
-      res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
-    }else{
-      const estado = results.rows[0].estado;
-      if (estado==="FUERA DE SALA"){
-        const message = 'ERROR: EL USUARIO YA SE ENCUENTRA FUERA DE LA SALA';
+      if(error){
+        console.log(error);
+        const message = 'ERROR: EL USUARIO NO EXISTE';
         res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
       }else{
-        conexion.query(inOut, (error, results) => {
-          if (error) {
-            console.log(error);
-          }else{
-            const message = 'el usuario se retira de la sala';
-            res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
-          }
-      });
-    }
+        const estado = results.rows[0].estado;
+        if (estado==="FUERA DE SALA"){
+          const message = 'ERROR: EL USUARIO YA SE ENCUENTRA FUERA DE LA SALA';
+          res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+        }else{
+          conexion.query(inOut, (error, results) => {
+            if (error) {
+              console.log(error);
+            }else{
+              const message = 'el usuario se retira de la sala';
+              res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
+            }
+          });
+        }
+      }
+    });
   }
-});
-  }else{
+  else {
     conexion.query(estadoSala, (error,results)=>{
       if(error){
         console.log(error);
@@ -224,10 +232,10 @@ exports.salaInOut = (req,res) => {
               const message = 'el usuario reingresa a de la sala';
               res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
             }
-        });
+          });
+        }
       }
-    }
-  });
+    });
   }
 }
 
@@ -247,13 +255,24 @@ exports.obtenerCookie = (req, res) => {
       console.log(error);
     }else{
       const pregunta = results.rows[0].pregunta_id;
-      const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
-      const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-      const asambleaId = cookieData.asambleaId;
-      const nombre = cookieData.nombre;
-      const alterno = cookieData.alterno;
-      const ipAddress = cookieData.ipAddress;
-      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
+
+      const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${pregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+
+      conexion.query(TexPregunta, (error, results) => {
+        if (error) {
+          throw error;
+        } else {
+          res.render('pregunta', { results: results.rows });
+        }
+      });
+
+    //   const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+    //   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+    //   const asambleaId = cookieData.asambleaId;
+    //   const nombre = cookieData.nombre;
+    //   const alterno = cookieData.alterno;
+    //   const ipAddress = cookieData.ipAddress;
+    //   res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
     }
   });
 }
