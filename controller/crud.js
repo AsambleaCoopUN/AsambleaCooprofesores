@@ -239,7 +239,7 @@ exports.salaInOut = (req,res) => {
   }
 }
 
-exports.obtenerCookie = (req, res) => {
+exports.paVotar = (req, res) => {
   const pregActiva= `SELECT pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta,
   CASE bandera_votacion
   WHEN 'E' THEN 'En espera de votación'

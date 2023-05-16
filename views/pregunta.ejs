@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
   <!--CSS-->
   <link href="/stylesheets/styles.css" rel="stylesheet">
-  <link href="/stylesheets/styleindex.css" rel="stylesheet">
+  <link href="/stylesheets/stylepregunta.css" rel="stylesheet">
   <!--Titulo-->
   <title>Sistema de votación</title>
   <!--Favicon-->
@@ -76,27 +76,14 @@
               <%results.forEach ((user)=> { %>              
                 <tr class="main-table_tr ">              
                   <td><%=user.opcion_enunciado %></td>
-                  <td style="<%= user.votos_opcion >= user.umbral_minimo ? 'background-color: green;' : '' %>"><%= user.votos_opcion %></td>
-                  <!-- <td><%=user.umbral_minimo %></td>        -->
+                  <td><label for="<%=user.opcion_enunciado %>"><input name="<%=user.opcion_enunciado %>" type="radio" id="<%=user.opcion_enunciado %>"></input></label></td>
                 </tr>
               <%}) %>
             </tbody>
         </table>
-        <table class="table table-bordered table-striped table-center mt-4">
-          <thead>
-            <tr class="main-table_tr">
-              <th scope="col">Enviar Voto</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% if (results.length > 0) { %>
-              <tr class="highlight2">
-                <td><%=results[0].umbral_minimo %></td> 
-              </tr>
-              <% } %>
-          </tbody>
-        </table>
-
+        <article class="main-section_article">
+          <a type="button" class="btn btn-primary" href="#">Enviar Voto</a>
+        </article>
       </div>
     </section>
   </main>
