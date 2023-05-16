@@ -255,13 +255,24 @@ exports.obtenerCookie = (req, res) => {
       console.log(error);
     }else{
       const pregunta = results.rows[0].pregunta_id;
-      const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
-      const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-      const asambleaId = cookieData.asambleaId;
-      const nombre = cookieData.nombre;
-      const alterno = cookieData.alterno;
-      const ipAddress = cookieData.ipAddress;
-      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
+
+      const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${pregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+
+      conexion.query(TexPregunta, (error, results) => {
+        if (error) {
+          throw error;
+        } else {
+          res.render('pregunta', { results: results.rows });
+        }
+      });
+
+    //   const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+    //   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+    //   const asambleaId = cookieData.asambleaId;
+    //   const nombre = cookieData.nombre;
+    //   const alterno = cookieData.alterno;
+    //   const ipAddress = cookieData.ipAddress;
+    //   res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
     }
   });
 }
