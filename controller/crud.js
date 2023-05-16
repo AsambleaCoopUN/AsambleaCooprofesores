@@ -5,6 +5,7 @@ exports.save = (req, res) => {
     const asambleaId = req.body.asambleaId;
     const delegadoId = req.body.delegadoId;
     const alterno = req.body.delcodalterno;
+    const nombre = req.body.delnombre;
 
     /* query que busca la fecha de registro validado contra el id del usuario */
     const fechareg = `SELECT a.asamblea_id, d.delegado_id ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, aa.fecha_hora_registro_entrada 
@@ -29,10 +30,10 @@ exports.save = (req, res) => {
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             } else {
               const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
-              const cookieValue = JSON.stringify({asambleaId,delegadoId,alterno,ipAddress}); // Crear un objeto con la información del dispositivo y la dirección IP
+              const cookieValue = JSON.stringify({asambleaId,nombre,alterno,ipAddress}); // Crear un objeto con la información del dispositivo y la dirección IP
               console.log('registro satisfactorio')
               const message = 'La asistencia ha sido registrada satisfactoriamente';
-              res.cookie('calterno', cookieValue, { maxAge: 24 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 24 horas
+              res.cookie('calterno', cookieValue, { maxAge: 12 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 4 horas
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             }
           });
@@ -230,22 +231,29 @@ exports.salaInOut = (req,res) => {
   }
 }
 
-/* exports.cookie = (req, res) =>{
-  const alterno = "req.body.alterno";
-  const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
-  const cookieValue = JSON.stringify({ alterno, ipAddress }); // Crear un objeto con la información del dispositivo y la dirección IP
-  res.cookie('miCookie', cookieValue, { maxAge: 24 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 24 horas
-  const message = "Conexión establecida";
-  console.log(`La dirección del cliente es: ${ipAddress}`);
-  res.send(`<script>window.location.href='/save'</script>`);
-} */
-
 exports.obtenerCookie = (req, res) => {
-  const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
-  const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-  const asambleaId = cookieData.asambleaId;
-  const delegadoId = cookieData.delegadoId;
-  const alterno = cookieData.alterno;
-  const ipAddress = cookieData.ipAddress;
-  res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>CC delegado: ${delegadoId}<br>Cod. alterno: ${alterno}<br>Dirección IP: ${ipAddress}`);
+  const pregActiva= `SELECT pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta,
+  CASE bandera_votacion
+  WHEN 'E' THEN 'En espera de votación'
+  WHEN 'C' THEN 'Pregunta Votada'
+  WHEN 'A' THEN 'Pregunta en proceso de votación'
+  END AS estado_pregunta
+  FROM emodel.pregunta_asamblea pa
+  WHERE bandera_votacion = 'A'
+  ORDER BY orden_pregunta;`;
+  
+  conexion.query (pregActiva,(error, results)=>{
+    if(error){
+      console.log(error);
+    }else{
+      const pregunta = results.rows[0].pregunta_id;
+      const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+      const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+      const asambleaId = cookieData.asambleaId;
+      const nombre = cookieData.nombre;
+      const alterno = cookieData.alterno;
+      const ipAddress = cookieData.ipAddress;
+      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
+    }
+  });
 }

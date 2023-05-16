@@ -3,10 +3,10 @@ module.exports = (req, res, next) => {
     const cookieValue = req.cookies.calterno;
     const cookieData = JSON.parse(cookieValue);
     const asambleaId = cookieData.asambleaId;
-    const delegadoId = cookieData.delegadoId;
+    const nombre = cookieData.nombre;
     const alterno = cookieData.alterno;
     const ipAddress = cookieData.ipAddress;
-    console.log(`validación de cookie:`,asambleaId,delegadoId,alterno, ipAddress);
+    console.log(`validación de cookie:`,asambleaId,nombre,alterno, ipAddress);
     next();
   } else {
     res.redirect('/login');
