@@ -22,6 +22,11 @@ router.get('/test', (req, res) => {
     res.render('test');
 });
 
+/* enrutamiento hacia la página de creación de preguntas */
+router.get('/create',(req,res)=> {
+    res.render('create');
+})
+
 /* enrutamiento hacia la página de edición de preguntas */
 router.get('/edit',(req,res)=> {
     res.render('edit');
