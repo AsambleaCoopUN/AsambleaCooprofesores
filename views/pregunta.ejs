@@ -68,21 +68,28 @@
           <thead> 
             <tr class="main-table_tr">            
               <th scope="col">Opción de Voto</th>
-              <th scope="col">VOTE</th>
+              <!-- <th scope="col">VOTE</th> -->
               <!-- <th scope="col">Umbral minimo de triunfo</th> -->
             </tr>
           </thead>
             <tbody >
               <%results.forEach ((user)=> { %>              
                 <tr class="main-table_tr ">              
-                  <td><%=user.opcion_enunciado %></td>
-                  <td><label for="<%=user.opcion_enunciado %>"><input name="<%=user.opcion_enunciado %>" type="radio" id="<%=user.opcion_enunciado %>"></input></label></td>
+                  <!-- <td><%= //user.opcion_enunciado %></td> -->
+                  <td><label for="<%=user.opcion_enunciado %>"><%=user.opcion_enunciado %></label>
+                    <input name="voto" type="radio" id="<%=user.opcion_enunciado %>"></input></td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results[0].pregunta_id %>" />
+                    <input type="hidden" id="pregEnunciado" name="pregEnunciado" value="<%=user.opcion_enunciado %>" />
+                </td>
                 </tr>
               <%}) %>
             </tbody>
         </table>
         <article class="main-section_article">
-          <a type="button" class="btn btn-primary" href="#">Enviar Voto</a>
+          <a type="button" id="regvoto" class="btn btn-primary">Enviar Voto</a>
         </article>
       </div>
     </section>
