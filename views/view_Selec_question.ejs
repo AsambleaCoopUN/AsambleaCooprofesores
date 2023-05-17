@@ -117,6 +117,9 @@
               <% } %>
           </tbody>
         </table>
+        <div clas="chart-container">
+          <canvas id="myChart"></canvas>
+        </div>
 
       </div>
     </section>
@@ -136,6 +139,29 @@
   <script src="/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/javascripts/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  
+  <script>
+    const labels = [<% results.forEach((user) => { %>'<%= user.opcion_enunciado %>', <% }) %>];
+    const data = [<% results.forEach((user) => { %><%= user.votos_opcion %>, <% }) %>];
+    const colors = ['red', 'blue', 'green', 'yellow'];
+  
+    // Paso 3: Inicialización del gráfico
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: data,
+          backgroundColor: colors,
+        }],
+        labels: labels,
+      },
+      options: {
+        responsive: true,
+      },
+    });
+  </script>
 </body>
 
 </html>

@@ -36,3 +36,9 @@
 .highlight3 {
   background-color: green;
 }
+
+.chart-container {
+  width: 50%;
+  height: 50%;
+  margin: auto;
+}
