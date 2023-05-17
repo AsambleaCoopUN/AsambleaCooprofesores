@@ -1,6 +1,8 @@
 const { Connection } = require('pg');
 const conexion = require('../database/conexion');
 const { error } = require('jquery');
+const { measureMemory } = require('vm');
+let message;
 
 exports.save = (req, res) => {
     //* Captura las celdas requeridas por el id */
@@ -28,20 +30,20 @@ exports.save = (req, res) => {
           conexion.query(insert, (error, results) => {
             if (error) {
               console.log(error);
-              const message = 'El usuario ya ha registrado su asistencia';
+              message = 'El usuario ya ha registrado su asistencia';
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             } else {
               const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
               const cookieValue = JSON.stringify({asambleaId,nombre,alterno,ipAddress}); // Crear un objeto con la información del dispositivo y la dirección IP
               console.log('registro satisfactorio')
-              const message = 'La asistencia ha sido registrada satisfactoriamente';
+              message = 'La asistencia ha sido registrada satisfactoriamente';
               res.cookie('calterno', cookieValue, { maxAge: 12 * 60 * 60 * 1000 }); // Establecer la cookie con el objeto como valor y una caducidad de 4 horas
               res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
             }
           });
         } else {
           console.log('Usuario ya existe');
-          const message = 'El usuario ya ha registrado su asistencia';
+          message = 'El usuario ya ha registrado su asistencia';
           res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
         }
       }
@@ -178,7 +180,7 @@ exports.salaInOut = (req,res) => {
   const alterno = (req.body.alterno);
   const inOut = `call emodel.registrar_evento_asistencia_asamblea ('${evento}','${alterno}')`;
  
-  /*query que valida el estado en la sala de un delegado segun su codigo alterno */
+  /*query que valida el estado en la sala de un delegado según su codigo alterno */
   const estadoSala = `select
   case aa.asistente_activo 
   when true then 'EN SALA' 
@@ -193,19 +195,19 @@ exports.salaInOut = (req,res) => {
     conexion.query(estadoSala, (error,results)=>{
       if(error){
         console.log(error);
-        const message = 'ERROR: EL USUARIO NO EXISTE';
+        message = 'ERROR: EL USUARIO NO EXISTE';
         res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
       }else{
         const estado = results.rows[0].estado;
         if (estado==="FUERA DE SALA"){
-          const message = 'ERROR: EL USUARIO YA SE ENCUENTRA FUERA DE LA SALA';
+          message = 'ERROR: EL USUARIO YA SE ENCUENTRA FUERA DE LA SALA';
           res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
         }else{
           conexion.query(inOut, (error, results) => {
             if (error) {
               console.log(error);
             }else{
-              const message = 'el usuario se retira de la sala';
+              message = 'el usuario se retira de la sala';
               res.send(`<script>if(confirm('${message}')){window.location.href='/checkInOut'}</script>`);
             }
           });
@@ -255,16 +257,28 @@ exports.paVotar = (req, res) => {
       console.log(error);
     }else{
       const pregunta = results.rows[0].pregunta_id;
-
-      const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo FROM emodel.pregunta_asamblea pa INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id WHERE pa.pregunta_id = '${pregunta}' ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
-
-      conexion.query(TexPregunta, (error, results) => {
-        if (error) {
-          throw error;
-        } else {
-          res.render('pregunta', { results: results.rows });
-        }
-      });
+      const estado = results.rows[0].estado_pregunta;
+      if (estado==="Pregunta en proceso de votación"){
+        const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado 
+        AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo 
+        FROM emodel.pregunta_asamblea pa 
+        INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id 
+        LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id 
+        WHERE pa.pregunta_id = '${pregunta}' 
+        ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+        
+        conexion.query(TexPregunta, (error, results) => {
+          if (error) {
+            throw error;
+          } else {
+            res.render('pregunta', { results: results.rows });
+          }
+        });
+      }else{
+        message = "No se tienen preguntas en proceso de votación pro favor espere";
+        res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
+      }
+      
 
     //   const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
     //   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON

@@ -144,7 +144,7 @@
   <script>
     const labels = [<% results.forEach((user) => { %>'<%= user.opcion_enunciado %>', <% }) %>];
     const data = [<% results.forEach((user) => { %><%= user.votos_opcion %>, <% }) %>];
-    const colors = ['red', 'blue', 'green', 'yellow'];
+    const colors = ['green', 'red', 'blue', 'yellow'];
   
     // Paso 3: Inicialización del gráfico
     const ctx = document.getElementById('myChart').getContext('2d');
