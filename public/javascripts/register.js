@@ -7,11 +7,13 @@ function register(){
   function capvoto(){
     const pregunta_id = document.getElementById("pregunta_id").value;
     const pregEnunciado = document.getElementById("pregEnunciado").value;
-    const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+    /* const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
     const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-    const alterno = cookieData.alterno;
+    const alterno = cookieData.alterno; */
 
-    console.log(pregunta_id,pregEnunciado,alterno);
+    console.log(pregunta_id);
+    console.log(pregEnunciado);
+    /* console.log(alterno); */
     
 
     /* if (asamblea!=""||delegado!=""||alterno!=""){
