@@ -279,14 +279,6 @@ exports.paVotar = (req, res) => {
         res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
       }
       
-
-    //   const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
-    //   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-    //   const asambleaId = cookieData.asambleaId;
-    //   const nombre = cookieData.nombre;
-    //   const alterno = cookieData.alterno;
-    //   const ipAddress = cookieData.ipAddress;
-    //   res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
     }
   });
 }

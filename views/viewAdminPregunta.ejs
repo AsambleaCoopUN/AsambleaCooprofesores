@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+<!--Metadatos-->
+    <meta charset="UTF-8">
+    <meta name="author" content="Desarrolladores: Jeisson Velosa y Andres Cardenas, Base de datos: Miguel Castañeda">
+    <meta name="description" content="Registro de votaciones COOPUN">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="/dist/css/bootstrap.min.css">
+<!--CSS-->
+    <link href="/stylesheets/styles.css" rel="stylesheet">
+    <link href="/stylesheets/styleSelecQuestion.css" rel="stylesheet">
+<!--Titulo-->
+    <title>Sistema de votación</title>
+<!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="/images/favicon_cpun.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+  </head>
+
+<body>
+  <header>
+<!--Barra de navegación-->
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
+            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggler">
+            <a class="navbar-brand">
+              <figure>
+                <img src="/images/logo_cpun.png" width="250" alt="Logo de la página web">
+              </figure>
+            </a>
+            <ul class="navbar-nav d-flex justify-content-center align-items-center">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Registro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href='/general'>Listado general</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/create">Moderador</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/view_questions">Listado de preguntas</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <main>
+<!-- Tabla presentacion de Una pregunta selecionada -->
+    <section>
+      <div class="container" >
+<!-- Visualizacion de la pregunta -->
+        <table class="table table-bordered table-striped table-center">
+          <thead>
+            <tr>
+              <th class="col-md-2 main-table_th" scope="col">Pregunta #</th>
+              <th class="col-md-10 main-table_th" scope="col">Enunciado Pregunta</th>
+            </tr>
+          </thead>
+            <tbody>
+              <% if (results.length > 0) { %>
+              <tr>              
+              <td class="main-table_td"><%=results[0].orden_pregunta %></td>
+              <td class="main-table_td"><%=results[0].pregunta_enunciado %></td>
+              </tr>
+              <% } %>
+            </tbody>
+        </table>
+<!-- Zona para visualizar los resultados de la pregunta seleccionada -->
+        <table class="table table-bordered table-striped table-center mt-4 ">
+          <thead> 
+            <tr class="main-table_tr">            
+              <th scope="col">Opción de Voto</th>
+              <th scope="col"># de Votos</th>
+              <!-- <th scope="col">Umbral minimo de triunfo</th> -->
+            </tr>
+          </thead>
+            <tbody >
+              <%results.forEach ((user)=> { %>              
+                <tr class="main-table_tr ">              
+                  <td><%=user.opcion_enunciado %></td>
+                  <td style="<%= user.votos_opcion >= user.umbral_minimo ? 'background-color: green;' : '' %>"><%= user.votos_opcion %></td>
+                  <!-- <td><%=user.umbral_minimo %></td>        -->
+                </tr>
+              <%}) %>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped table-center mt-4">
+          <thead>
+            <tr class="main-table_tr">
+              <th scope="col">Umbral de votos minimos para triunfo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (results.length > 0) { %>
+              <tr class="highlight2">
+                <td><%=results[0].umbral_minimo %></td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+  </main>
+
+<!--Pie de página-->
+<footer class="footer">
+  <div class="container-fluid text-center">
+    <p>CooprofesoresUN  <br><b>all right reserved 2023</b> </p>
+  </div>
+</footer>
+  
+  <!-- JavaScript -->
+  <script src="/javascripts/register.js"></script>
+  <script src="/javascripts/jquery-3.6.3.min.js"></script>
+  <script src="/dist/js/bootstrap.min.js"></script>
+  <script src="/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/script.js"></script>
+</body>
+
+</html>
