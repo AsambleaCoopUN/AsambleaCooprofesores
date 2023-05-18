@@ -69,7 +69,6 @@
             <tr class="main-table_tr">            
               <th scope="col">Opción de Voto</th>
               <!-- <th scope="col">VOTE</th> -->
-              <!-- <th scope="col">Umbral minimo de triunfo</th> -->
             </tr>
           </thead>
             <tbody >
@@ -77,12 +76,12 @@
                 <tr class="main-table_tr ">              
                   <!-- <td><%= //user.opcion_enunciado %></td> -->
                   <td><label for="<%=user.opcion_enunciado %>"><%=user.opcion_enunciado %></label>
-                    <input name="voto" type="radio" id="<%=user.opcion_enunciado %>"></input></td>
+                    <input name="voto" type="radio" id="<%=user.opcion_enunciado %>" value="<%=user.opcion_enunciado %>"></input>
+                  </td>
                 </tr>
                 <tr>
                   <td>
-                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results[0].pregunta_id %>" />
-                    <input type="hidden" id="pregEnunciado" name="pregEnunciado" value="<%=user.opcion_enunciado %>" />
+                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results[0].pregunta_id %>"/>
                 </td>
                 </tr>
               <%}) %>

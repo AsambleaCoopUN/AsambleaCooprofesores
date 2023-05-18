@@ -304,7 +304,7 @@ exports.obtenerCookie = (req, res) => {
       const nombre = cookieData.nombre;
       const alterno = cookieData.alterno;
       const ipAddress = cookieData.ipAddress;
-      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}`);
+      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}<br>IP: ${ipAddress}`);
     }
   });
 }
