@@ -278,7 +278,33 @@ exports.paVotar = (req, res) => {
         message = "No se tienen preguntas en proceso de votación pro favor espere";
         res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
       }
-      
+    }
+  });
+}
+
+exports.obtenerCookie = (req, res) => {
+  const pregActiva= `SELECT pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta,
+  CASE bandera_votacion
+  WHEN 'E' THEN 'En espera de votación'
+  WHEN 'C' THEN 'Pregunta Votada'
+  WHEN 'A' THEN 'Pregunta en proceso de votación'
+  END AS estado_pregunta
+  FROM emodel.pregunta_asamblea pa
+  WHERE bandera_votacion = 'A'
+  ORDER BY orden_pregunta;`;
+  
+  conexion.query (pregActiva,(error, results)=>{
+    if(error){
+      console.log(error);
+    }else{
+      const pregunta = results.rows[0].pregunta_id;
+      const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+      const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+      const asambleaId = cookieData.asambleaId;
+      const nombre = cookieData.nombre;
+      const alterno = cookieData.alterno;
+      const ipAddress = cookieData.ipAddress;
+      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}<br>IP: ${ipAddress}`);
     }
   });
 }

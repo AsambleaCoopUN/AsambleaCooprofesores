@@ -1,23 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-  function register(){
-    let login = document.getElementById('btnregistrar');
-    console.log(login);
-    login.addEventListener('click', regcookie);
+let pregunta_id;
+let pregEnunciado;
+
+function register() {
+  let invoto = document.getElementById('regvoto');
+  invoto.addEventListener('click', capvoto);
+}
+
+function capvoto() {
+  let selectedOption = document.querySelector('input[name="voto"]:checked');
+  let pregunta_id = document.getElementById("pregunta_id").value;
+  
+  if (selectedOption && pregunta_id) {
+    console.log("Opción seleccionada:", selectedOption.value);
+    console.log("Pregunta ID:", pregunta_id);
+    
+  } else {
+    alert("Por favor, selecciona una opción de voto");
   }
+}
 
-  function regcookie(){
-    const asamblea = document.getElementById("asambleaId").value;
-    const delegado = document.getElementById("delegadoId").value;
-    const alterno = document.getElementById("calterno").value;
-
-    if (asamblea!=""||delegado!=""||alterno!=""){
-      const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
-      document.cookie = `calterno=${asamblea};${delegado};${alterno};${ipAddress}`;
-      document.location.href="/";
-    }else{
-      alert("no se encuentran datos para registrar");
-    }
-  }
-
-  window.addEventListener("load",register);
-});
+window.addEventListener("load",register);

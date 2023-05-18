@@ -65,6 +65,7 @@ router.post('/read', crud.read);
 router.post('/pregunta', crud.pregunta);
 router.post('/salaInOut', crud.salaInOut);
 router.get('/paVotar', crud.paVotar);
+router.get('/obtenerCookie', crud.obtenerCookie);
 
 /* enrutamiento para visualizar todas las preguntas  */
 router.get('/view_questions', (req, res) => {
