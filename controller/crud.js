@@ -259,13 +259,12 @@ exports.paVotar = (req, res) => {
       const pregunta = results.rows[0].pregunta_id;
       const estado = results.rows[0].estado_pregunta;
       if (estado==="Pregunta en proceso de votación"){
-        const TexPregunta = `SELECT pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado 
-        AS opcion_enunciado, crpm.votos_opcion, crpm.minimo_valor_triunfo umbral_minimo 
-        FROM emodel.pregunta_asamblea pa 
-        INNER JOIN emodel.pregunta_opciones po ON pa.pregunta_id = po.pregunta_id 
-        LEFT OUTER JOIN emodel.calcula_resultado_pregunta_mayoria crpm ON crpm.opcion_id = po.pregunta_opcion_id 
-        WHERE pa.pregunta_id = '${pregunta}' 
-        ORDER BY po.pregunta_id, po.pregunta_opcion_orden;`;
+        const TexPregunta = `select po.pregunta_opcion_id, pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado
+        AS opcion_enunciado 
+        from emodel.pregunta_opciones po
+        INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = po.pregunta_id
+        where pa.pregunta_id = '${pregunta}'
+        order by pregunta_id , pregunta_opcion_orden;`;
         
         conexion.query(TexPregunta, (error, results) => {
           if (error) {
