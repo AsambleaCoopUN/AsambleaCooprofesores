@@ -1,6 +1,4 @@
 let pregunta_id;
-let pregEnunciado;
-
 function register() {
   let invoto = document.getElementById('regvoto');
   invoto.addEventListener('click', capvoto);
@@ -8,12 +6,11 @@ function register() {
 
 function capvoto() {
   let selectedOption = document.querySelector('input[name="voto"]:checked');
-  let pregunta_id = document.getElementById("pregunta_id").value;
-  
-  if (selectedOption && pregunta_id) {
-    console.log("Opción seleccionada:", selectedOption.value);
-    console.log("Pregunta ID:", pregunta_id);
-    
+  pregunta_id = document.getElementById("pregunta_id").value;
+  if (selectedOption) {
+    console.log("ID de la opción seleccionada:", selectedOption.value);
+    console.log("ID de la pregunta:", pregunta_id);
+    /* acá va a ir la validación de la cookie para luego para obtener el "asistencia:id único del asociado" */
   } else {
     alert("Por favor, selecciona una opción de voto");
   }
