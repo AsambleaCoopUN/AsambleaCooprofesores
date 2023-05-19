@@ -50,22 +50,6 @@ exports.save = (req, res) => {
     });
   }
 
-exports.read = (req,res)=>{
-    /* se asigna la cédula recibida a una constante */
-    const cedula = (req.body.cedula);
-    /* Query de búsqueda a la base de datos por el número de cedula*/
-    const search = `SELECT a.asamblea_id, d.delegado_id, d.delegado_codigo_alterno ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo FROM emodel.asamblea a, emodel.delegado d WHERE  d.delegado_documento_identificacion = '${cedula}'`;
-    
-    /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
-    conexion.query(search, (error, results) =>{
-        if (error){
-            throw error;
-        }else{
-            res.render('consulta', {results:results.rows});
-        }
-    });
-}
-
 exports.pregunta = (req, res) => {
 
   /* se asigna id de la pregunta a la constante */
@@ -174,7 +158,7 @@ exports.pregunta = (req, res) => {
     });
   }
 }
-/* Metodo que valida y/o cambia el estado en sala de un delegado segun el codigo alterno asignado*/
+/* Método que valida y/o cambia el estado en sala de un delegado según el codigo alterno asignado*/
 exports.salaInOut = (req,res) => {
   const evento = (req.body.evento);
   const alterno = (req.body.alterno);
@@ -241,69 +225,24 @@ exports.salaInOut = (req,res) => {
   }
 }
 
-exports.paVotar = (req, res) => {
-  const pregActiva= `SELECT pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta,
-  CASE bandera_votacion
-  WHEN 'E' THEN 'En espera de votación'
-  WHEN 'C' THEN 'Pregunta Votada'
-  WHEN 'A' THEN 'Pregunta en proceso de votación'
-  END AS estado_pregunta
-  FROM emodel.pregunta_asamblea pa
-  WHERE bandera_votacion = 'A'
-  ORDER BY orden_pregunta;`;
+/* método para la insertar los votos de los asociados */
+exports.registroVoto=(req,res)=>{
   
-  conexion.query (pregActiva,(error, results)=>{
-    if(error){
-      console.log(error);
-    }else{
-      const pregunta = results.rows[0].pregunta_id;
-      const estado = results.rows[0].estado_pregunta;
-      if (estado==="Pregunta en proceso de votación"){
-        const TexPregunta = `select po.pregunta_opcion_id, pa.pregunta_id, pa.orden_pregunta, pa.pregunta_enunciado, po.pregunta_opcion_ordinal || po.pregunta_opcion_enunciado
-        AS opcion_enunciado 
-        from emodel.pregunta_opciones po
-        INNER JOIN emodel.pregunta_asamblea pa ON pa.pregunta_id = po.pregunta_id
-        where pa.pregunta_id = '${pregunta}'
-        order by pregunta_id , pregunta_opcion_orden;`;
-        
-        conexion.query(TexPregunta, (error, results) => {
-          if (error) {
-            throw error;
-          } else {
-            res.render('pregunta', { results: results.rows });
-          }
-        });
-      }else{
-        message = "No se tienen preguntas en proceso de votación pro favor espere";
-        res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
-      }
-    }
-  });
-}
 
-exports.obtenerCookie = (req, res) => {
-  const pregActiva= `SELECT pregunta_id, orden_pregunta, pregunta_enunciado, tipo_pregunta,
-  CASE bandera_votacion
-  WHEN 'E' THEN 'En espera de votación'
-  WHEN 'C' THEN 'Pregunta Votada'
-  WHEN 'A' THEN 'Pregunta en proceso de votación'
-  END AS estado_pregunta
-  FROM emodel.pregunta_asamblea pa
-  WHERE bandera_votacion = 'A'
-  ORDER BY orden_pregunta;`;
-  
-  conexion.query (pregActiva,(error, results)=>{
-    if(error){
+  const registro = `insert into emodel.respuesta_pregunta(pregunta_opcion_id,asistencia_id)
+  select '${opcionseleccionada}', 
+    aa.asistencia_id 
+  from emodel.asistencia_asamblea aa 
+  inner join emodel.delegado d 
+  on aa.delegado_id = d.delegado_id 
+  inner join emodel.asamblea a 
+  on aa.asamblea_id =a.asamblea_id and a.asamblea_activa ='S'
+  where d.delegado_codigo_alterno  = '${alterno}'`;
+
+
+  conexion.query(registro, (error, results) => {
+    if (error) {
       console.log(error);
-    }else{
-      const pregunta = results.rows[0].pregunta_id;
-      const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
-      const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
-      const asambleaId = cookieData.asambleaId;
-      const nombre = cookieData.nombre;
-      const alterno = cookieData.alterno;
-      const ipAddress = cookieData.ipAddress;
-      res.send(`Información de la cookie: <br>Asamblea: ${asambleaId}<br>Delegado: ${nombre}<br>Cod. alterno: ${alterno}<br>Pregunta ID: ${pregunta}<br>IP: ${ipAddress}`);
     }
   });
 }

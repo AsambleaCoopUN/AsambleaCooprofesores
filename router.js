@@ -59,13 +59,17 @@ router.get('/checkInOut', (req,res)=>{
     res.render('checkInOut');
 })
 
+/* métodos almacenados en crud */
 const crud = require ('./controller/crud');
 router.post('/save', crud.save);
-router.post('/read', crud.read);
 router.post('/pregunta', crud.pregunta);
 router.post('/salaInOut', crud.salaInOut);
-router.get('/paVotar', crud.paVotar);
-router.get('/obtenerCookie', crud.obtenerCookie);
+
+/* métodos almacenados en search*/
+const search = require ('./controller/search');
+router.post('/read', search.read);
+router.get('/votacion', search.votacion);
+router.get('/paVotar', search.paVotar);
 
 /* enrutamiento para visualizar todas las preguntas  */
 router.get('/view_questions', (req, res) => {
