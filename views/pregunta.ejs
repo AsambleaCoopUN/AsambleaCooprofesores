@@ -78,6 +78,9 @@
                   <td><label for="<%=user.opcion_enunciado %>"><%=user.opcion_enunciado %></label>
                     <input name="voto" type="radio" id="<%=user.opcion_enunciado %>" value="<%=user.pregunta_opcion_id %>"></input>
                   </td>
+                  <tr>
+                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results[0].pregunta_id %>"/>
+                  </tr>
                 </tr>
               <%}) %>
             </tbody>
