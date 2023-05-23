@@ -28,10 +28,8 @@ exports.votacion = (req, res) => {
   const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
   const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
   const asambleaId = cookieData.asambleaId;
-  /* const nombre = cookieData.nombre; */
   const alterno = cookieData.alterno;
-  /* const ipAddress = cookieData.ipAddress; */
-
+  
   const estadoSala = `select
   case aa.asistente_activo 
   when true then 'EN SALA' 
@@ -54,6 +52,7 @@ exports.votacion = (req, res) => {
       console.log(error);
     }else{
       const estado = results.rows[0].estado;
+
       if (estado === "EN SALA"){
         conexion.query(asistencia, (error,results2)=>{
           if (error) {
@@ -61,25 +60,22 @@ exports.votacion = (req, res) => {
           }else{
             const idasistencia = results2.rows[0].asistencia_id;
 
-            const resDelegado = `select coalesce(count(*),0) as conteo_respuesta_delegado
+            const resDelegado = `select coalesce(count(*),0) 
+            as conteo_respuesta_delegado
             from emodel.respuesta_pregunta rp 
-            where  asistencia_id =  '${idasistencia}' 
+            where  asistencia_id =   '${idasistencia}'
             and pregunta_opcion_id 
-            in (select pregunta_opcion_id  
-            from emodel.pregunta_opciones po 
-            where pregunta_id = (select pregunta_id  
-            from emodel.pregunta_asamblea pa 
-            where bandera_votacion ='A'));`;
+            in (select pregunta_opcion_id  from emodel.pregunta_opciones po where pregunta_id = (select pregunta_id  from emodel.pregunta_asamblea pa where bandera_votacion ='A'))`;
 
             conexion.query(resDelegado, (error,results3)=>{
               if (error) {
                 console.log(error);
               }else{
-                if (results3 === 1){
+                if (results3.rows[0].conteo_respuesta_delegado == 0){
+                  res.send(`<script>window.location.href='/paVotar'</script>`);
+                }else{
                   message = "Su voto ya a sido registrado";
                   res.send(`<script>if(confirm('${message}')){window.location.href='/'}</script>`);
-                }else{
-                  res.send(`<script>window.location.href='/paVotar'</script>`);
                 }
               }
             });
@@ -118,11 +114,11 @@ exports.paVotar = (req, res) => {
         where pa.pregunta_id = (select pa2.pregunta_id  from emodel.pregunta_asamblea pa2 where pa2.bandera_votacion='A')
         order by pregunta_id , pregunta_opcion_orden;`;
         
-        conexion.query(TexPregunta, (error, results) => {
+        conexion.query(TexPregunta, (error, results2) => {
           if (error) {
             throw error;
           } else {
-            res.render('pregunta', { results: results.rows });
+            res.render('pregunta', { results2: results2.rows });
           }
         });
       }else{

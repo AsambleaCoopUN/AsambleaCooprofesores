@@ -226,23 +226,29 @@ exports.salaInOut = (req,res) => {
 }
 
 /* método para la insertar los votos de los asociados */
-exports.registroVoto=(req,res)=>{
-  
+exports.registroVoto=(req, res)=> {
+  const cookieValue = req.cookies.calterno; // Obtener el valor de la cookie
+  const cookieData = JSON.parse(cookieValue); // Analizar el valor de la cookie como un objeto JSON
+  const alterno = cookieData.alterno;
+  const idoption = req.body.selectedOption;
 
-  const registro = `insert into emodel.respuesta_pregunta(pregunta_opcion_id,asistencia_id)
-  select '${opcionseleccionada}', 
+  const registro = `insert into emodel.respuesta_pregunta(pregunta_id,pregunta_opcion_id,asistencia_id)
+  select pregunta_id, '${idoption}', 
     aa.asistencia_id 
   from emodel.asistencia_asamblea aa 
   inner join emodel.delegado d 
   on aa.delegado_id = d.delegado_id 
   inner join emodel.asamblea a 
   on aa.asamblea_id =a.asamblea_id and a.asamblea_activa ='S'
+  inner join emodel.pregunta_opciones po 
+  on po.pregunta_opcion_id = '${idoption}'
   where d.delegado_codigo_alterno  = '${alterno}'`;
-
 
   conexion.query(registro, (error, results) => {
     if (error) {
       console.log(error);
+    } else {
+      res.send();
     }
   });
 }

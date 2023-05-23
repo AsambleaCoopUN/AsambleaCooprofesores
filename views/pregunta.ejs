@@ -55,10 +55,10 @@
             </tr>
           </thead>
             <tbody>
-              <% if (results.length > 0) { %>
+              <% if (results2.length > 0) { %>
               <tr>              
-              <td class="main-table_td"><%=results[0].orden_pregunta %></td>
-              <td class="main-table_td"><%=results[0].pregunta_enunciado %></td>
+              <td class="main-table_td"><%=results2[0].orden_pregunta %></td>
+              <td class="main-table_td"><%=results2[0].pregunta_enunciado %></td>
               </tr>
               <% } %>
             </tbody>
@@ -72,14 +72,14 @@
             </tr>
           </thead>
             <tbody >
-              <%results.forEach ((user)=> { %>              
+              <%results2.forEach ((user)=> { %>              
                 <tr class="main-table_tr ">              
                   <!-- <td><%= //user.opcion_enunciado %></td> -->
                   <td><label for="<%=user.opcion_enunciado %>"><%=user.opcion_enunciado %></label>
                     <input name="voto" type="radio" id="<%=user.opcion_enunciado %>" value="<%=user.pregunta_opcion_id %>"></input>
                   </td>
                   <tr>
-                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results[0].pregunta_id %>"/>
+                    <input type="hidden" id="pregunta_id" name="pregunta_id" value="<%=results2[0].pregunta_id %>"/>
                   </tr>
                 </tr>
               <%}) %>

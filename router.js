@@ -64,6 +64,8 @@ const crud = require ('./controller/crud');
 router.post('/save', crud.save);
 router.post('/pregunta', crud.pregunta);
 router.post('/salaInOut', crud.salaInOut);
+router.post('/registroVoto', crud.registroVoto);
+
 
 /* métodos almacenados en search*/
 const search = require ('./controller/search');
