@@ -28,7 +28,7 @@
     "express-useragent": "^1.0.15",
     "jquery": "^3.6.3",
     "nodemon": "^2.0.21",
-    "pg": "^8.9.0",
+    "pg": "^8.11.0",
     "postgresql": "^0.0.1",
     "socket.io": "^4.6.1"
   }
