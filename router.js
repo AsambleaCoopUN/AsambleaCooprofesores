@@ -96,7 +96,7 @@ router.get('/estadoEnSala', (req, res) => {
     end estado from emodel.asistencia_asamblea aa 
     inner join emodel.delegado d 
     on d.delegado_id = aa.delegado_id 
-    where asamblea_id = 1 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'
+    where asamblea_id = 6 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'
     order by aa.asistente_activo desc, d.delegado_tipo asc`;
 
     conexion.query(courum , (error,results)=>{
