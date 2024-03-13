@@ -10,9 +10,9 @@ exports.read = (req,res)=>{
   const cedula = (req.body.cedula);
   /* Query de búsqueda a la base de datos por el número de cedula*/
   const search = `select (select asamblea_id  from emodel.asamblea a  where asamblea_activa ='S') asamblea_id, 
-  d.delegado_id, d.delegado_codigo_alterno ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo
+  d.delegado_id, d.delegado_codigo_alterno ,d.delegado_documento_identificacion , d.delegado_nombres , d.delegado_tipo, d.delegado_fecha_inicio 
   from emodel.delegado d 
-  WHERE  d.delegado_documento_identificacion = '${cedula}'`;
+  WHERE  d.delegado_documento_identificacion = '${cedula}' AND EXTRACT(YEAR FROM d.delegado_fecha_inicio) = EXTRACT(YEAR FROM CURRENT_DATE);`;
   
   /* método que ejecuta el query y devuelve el resultado o el error obtenidos */
   conexion.query(search, (error, results) =>{
@@ -38,7 +38,7 @@ exports.votacion = (req, res) => {
   from emodel.asistencia_asamblea aa 
   inner join emodel.delegado d 
   on d.delegado_id = aa.delegado_id 
-  where asamblea_id = 1 and upper(d.delegado_codigo_alterno) = upper('${alterno}')`;
+  where asamblea_id = 6 and upper(d.delegado_codigo_alterno) = upper('${alterno}')`;
 
   const asistencia = `SELECT aa.asistencia_id
   from emodel.asistencia_asamblea aa, emodel.delegado d 

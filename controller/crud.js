@@ -173,7 +173,7 @@ exports.salaInOut = (req,res) => {
   from emodel.asistencia_asamblea aa 
   inner join emodel.delegado d 
   on d.delegado_id = aa.delegado_id 
-  where asamblea_id = 1 and upper(d.delegado_codigo_alterno) = upper('${alterno}')`;
+  where asamblea_id = 6 and upper(d.delegado_codigo_alterno) = upper('${alterno}')`;
   
   if (evento === "SALIDA"){
     conexion.query(estadoSala, (error,results)=>{

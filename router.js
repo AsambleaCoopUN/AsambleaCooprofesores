@@ -34,7 +34,7 @@ router.get('/edit',(req,res)=> {
 
 /* enrutamiento a la pagina donde aparece el listado completo de delegados y lo ordena por fecha y hora de registro de ingreso a la Asamblea*/
 router.get('/general', (req, res) => {
-    const lgeneral = `select d.delegado_id, d.delegado_codigo_alterno, d.delegado_documento_identificacion , d.delegado_nombres, d.delegado_tipo ,aa.fecha_hora_registro_entrada from emodel.delegado d left outer join emodel.asistencia_asamblea aa on d.delegado_id  = aa.delegado_id where d.delegado_tipo  <> 'AGREGADOR_PRINCIPAL' order by aa.fecha_hora_registro_entrada  asc`;
+    const lgeneral = `select d.delegado_id, d.delegado_codigo_alterno, d.delegado_documento_identificacion , d.delegado_nombres, d.delegado_tipo ,aa.fecha_hora_registro_entrada from emodel.delegado d left outer join emodel.asistencia_asamblea aa on d.delegado_id  = aa.delegado_id where d.delegado_id >=130 order by aa.fecha_hora_registro_entrada  asc`;
     conexion.query(lgeneral , (error,results)=>{
          if (error){
             throw error;
@@ -96,7 +96,7 @@ router.get('/estadoEnSala', (req, res) => {
     end estado from emodel.asistencia_asamblea aa 
     inner join emodel.delegado d 
     on d.delegado_id = aa.delegado_id 
-    where asamblea_id = 1 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'
+    where asamblea_id = 6 and d.delegado_tipo <> 'AGREGADOR_PRINCIPAL'
     order by aa.asistente_activo desc, d.delegado_tipo asc`;
 
     conexion.query(courum , (error,results)=>{
